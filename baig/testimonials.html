@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testimonials - Beyond AI Gen</title>
+    <meta name="description" content="Beyond AI Gen specializes in building intelligent AI agents, process automation, and custom SaaS solutions." />
+    <meta property="og:title" content="Testimonials - Beyond AI Gen" />
+    <meta property="og:image" content="https://beyondaigen.com/logo.png" />
+    <meta property="og:url" content="https://beyondaigen.com" />
+    <meta property="og:type" content="website" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="loader" id="loader"><div class="loader-bar"></div></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="baiglogo.png" alt="Beyond AI Gen" class="logo-img" />
+                    <span class="logo-text">Beyond AI Gen</span>
+                </a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="testimonials.html" class="nav-link active">Testimonials</a></li>
+                <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Client <span class="gradient-text">Success Stories</span></h2>
+                <p class="section-subtitle">Real results from businesses we've transformed with AI</p>
+            </div>
+            <div class="testi-carousel reveal" id="testiCarousel">
+                <div class="testi-track" id="testiTrack">
+                    <div class="testi-slide">
+                        <div class="testi-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="testi-rating"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><span class="rating-txt">5.0</span></div>
+                            <blockquote>"Beyond AI Gen transformed our customer service operations with their intelligent AI agents. The automation reduced response time by 80% and significantly improved customer satisfaction."</blockquote>
+                            <div class="testi-author"><div class="author-av">GK</div><div class="author-info"><h4>Girish Kumar</h4><span>CEO, CognitBotz Solutions</span></div><div class="verified"><i class="fas fa-check-circle"></i></div></div>
+                        </div>
+                    </div>
+                    <div class="testi-slide">
+                        <div class="testi-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="testi-rating"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><span class="rating-txt">5.0</span></div>
+                            <blockquote>"Their custom automation solution streamlined our entire workflow. What used to take hours now happens in minutes. The ROI was evident within the first month."</blockquote>
+                            <div class="testi-author"><div class="author-av">SK</div><div class="author-info"><h4>Confidential</h4><span>Vice President, Confidential</span></div><div class="verified"><i class="fas fa-check-circle"></i></div></div>
+                        </div>
+                    </div>
+                    <div class="testi-slide">
+                        <div class="testi-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="testi-rating"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><span class="rating-txt">5.0</span></div>
+                            <blockquote>"The SaaS platform they developed for us has revolutionized how we manage our business processes. The AI insights have helped us make better data-driven decisions."</blockquote>
+                            <div class="testi-author"><div class="author-av">SR</div><div class="author-info"><h4>Srinivas</h4><span>Co-founder, SLNS Constructions</span></div><div class="verified"><i class="fas fa-check-circle"></i></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-ctrls reveal">
+                <button class="c-btn" id="cPrev"><i class="fas fa-chevron-left"></i></button>
+                <div class="c-dots" id="cDots">
+                    <button class="c-dot on" data-i="0"></button>
+                    <button class="c-dot" data-i="1"></button>
+                    <button class="c-dot" data-i="2"></button>
+                </div>
+                <button class="c-btn" id="cNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="baiglogo.png" alt="Beyond AI Gen" class="logo-img" />
+                        <span class="logo-text">Beyond AI Gen</span>
+                    </div>
+                    <p>Transforming businesses through intelligent AI solutions, one automation at a time.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/beyond-ai-gen" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://twitter.com/beyondaigen" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/beyondaigen" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                        <a href="https://github.com/beyondaigen" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                        <a href="https://wa.me/601121473088" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">AI Agents Development</a></li>
+                        <li><a href="services.html">Process Automation</a></li>
+                        <li><a href="services.html">SaaS Solutions</a></li>
+                        <li><a href="services.html">Custom Applications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-envelope"></i> bhaskar@beyondaigen.com</p>
+                        <p><i class="fas fa-phone"></i> +60 11-2147-3088</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Trion KL, Chan Sow Lin<br>&nbsp;&nbsp;&nbsp;&nbsp; 55200 Kuala Lumpur, Malaysia</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Beyond AI Gen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <a href="https://wa.me/601121473088?text=Hi%2C%20I%27m%20interested%20in%20your%20AI%20solutions" class="wa-float" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+    <script src="script.js"></script>
+</body>
+</html>

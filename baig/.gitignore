@@ -1,0 +1,22 @@
+# Unrelated folders
+Git/
+C Code/
+c/
+
+# Virtual environments
+.venv/
+.venv-1/
+
+# IDE
+.vscode/
+
+# Backup files
+baig_backup.html
+
+# Build output
+.dist/
+output/
+
+# OS files
+Thumbs.db
+.DS_Store

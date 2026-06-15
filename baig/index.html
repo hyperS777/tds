@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beyond AI Gen - AI Agents & Automation Solutions</title>
+    <meta name="description"
+        content="Beyond AI Gen specializes in building intelligent AI agents, process automation, and custom SaaS solutions to transform your business operations." />
+    <meta name="keywords"
+        content="AI agents, automation, SaaS solutions, custom applications, RPA, machine learning, Beyond AI Gen" />
+    <meta property="og:title" content="Beyond AI Gen - AI Agents & Automation Solutions" />
+    <meta property="og:description"
+        content="Transform your business with intelligent AI agents, process automation, and custom SaaS solutions." />
+    <meta property="og:image" content="https://beyondaigen.com/logo.png" />
+    <meta property="og:url" content="https://beyondaigen.com" />
+    <meta property="og:type" content="website" />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Beyond AI Gen",
+      "url": "https://beyondaigen.com",
+      "logo": "https://beyondaigen.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+60-11-2147-3088",
+        "contactType": "customer service",
+        "areaServed": "Global"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/beyond-ai-gen",
+        "https://twitter.com/beyondaigen",
+        "https://www.facebook.com/beyondaigen",
+        "https://github.com/beyondaigen"
+      ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader"><div class="loader-bar"></div></div>
+
+    <!-- Nav -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="baiglogo.png" alt="Beyond AI Gen" class="logo-img" />
+                    <span class="logo-text">Beyond AI Gen</span>
+                </a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
+                <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <canvas id="heroCanvas" class="hero-canvas"></canvas>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title skel skel-text">We build <span class="gradient-text">AI that actually works</span> for your business</h1>
+                <p class="hero-subtitle skel skel-text"><span id="typedText"></span><span class="typed-cursor">|</span></p>
+                <div class="hero-buttons">
+                    <a href="services.html" class="btn btn-primary skel skel-card" style="min-height:auto;">Explore Solutions</a>
+                    <a href="contact.html" class="btn btn-secondary skel skel-card" style="min-height:auto;">Get Started</a>
+                </div>
+                <div class="hero-features">
+                    <div class="feature-item"><i class="fas fa-shield-alt"></i><span>Enterprise Security</span></div>
+                    <div class="feature-item"><i class="fas fa-rocket"></i><span>Rapid Deployment</span></div>
+                    <div class="feature-item"><i class="fas fa-chart-line"></i><span>Measurable ROI</span></div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-visual-wrap">
+                    <!-- Orbital rings -->
+                    <div class="orbit orbit-1"></div>
+                    <div class="orbit orbit-2"></div>
+                    <div class="orbit orbit-3"></div>
+                    <!-- Orbital dots -->
+                    <div class="orbit-dot od-1"></div>
+                    <div class="orbit-dot od-2"></div>
+                    <div class="orbit-dot od-3"></div>
+                    <div class="orbit-dot od-4"></div>
+                    <div class="orbit-dot od-5"></div>
+                    <div class="orbit-dot od-6"></div>
+                    <!-- Logo -->
+                    <img src="baiglogo2.png" alt="BAIG" class="hero-logo-img" />
+                    <!-- Floating cards -->
+                    <div class="hero-float-card hfc-1">
+                        <span class="hfc-num">50+</span>
+                        <span class="hfc-label">Projects shipped</span>
+                    </div>
+                    <div class="hero-float-card hfc-2">
+                        <span class="hfc-num">4</span>
+                        <span class="hfc-label">Countries</span>
+                    </div>
+                    <div class="hero-float-card hfc-3">
+                        <span class="hfc-num">98%</span>
+                        <span class="hfc-label">Client retention</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="deco-blob deco-blob-tl"></div>
+        <div class="deco-blob deco-blob-br"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title skel skel-text">About <span class="gradient-text">Beyond AI Gen</span></h2>
+                <p class="section-subtitle">Pioneering the future of intelligent automation</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text reveal-left">
+                    <h3>Leading AI Innovation</h3>
+                    <p>At Beyond AI Gen, we specialize in creating intelligent AI agents and automation solutions that revolutionize how businesses operate. Our expertise spans across custom application development, SaaS platforms, and product sales, all powered by cutting-edge artificial intelligence.</p>
+                    <p>We understand that every business has unique challenges and requirements. That's why we offer tailored solutions that seamlessly integrate with your existing systems while delivering measurable results and exceptional ROI.</p>
+                    <div class="about-stats stagger-children">
+                        <div class="stat-mini reveal"><div class="num" data-count="50">0+</div><div class="lbl">Projects Delivered</div></div>
+                        <div class="stat-mini reveal"><div class="num" data-count="98">0%</div><div class="lbl">Client Satisfaction</div></div>
+                        <div class="stat-mini reveal"><div class="num" data-count="10">0+</div><div class="lbl">AI Products</div></div>
+                        <div class="stat-mini reveal"><div class="num">24/7</div><div class="lbl">Support</div></div>
+                    </div>
+                </div>
+                <div class="tech-visual reveal-right">
+                    <div class="tech-pill">AI Agents</div><div class="tech-pill">RPA</div>
+                    <div class="tech-pill">Automation</div><div class="tech-pill">SaaS Solutions</div>
+                    <div class="tech-pill">Custom Apps</div><div class="tech-pill">Machine Learning</div>
+                    <div class="tech-pill">Cloud Integration</div><div class="tech-pill">NLP</div>
+                    <div class="tech-pill">Computer Vision</div><div class="tech-pill">Data Analytics</div>
+                    <div class="tech-pill">API Development</div><div class="tech-pill">Deep Learning</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="sep-line">
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="deco-dots deco-dots-tr"></div>
+        <div class="deco-ring deco-ring-bl"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title skel skel-text">Our <span class="gradient-text">Services</span></h2>
+                <p class="section-subtitle">Comprehensive AI and automation solutions tailored to your needs</p>
+            </div>
+            <div class="services-grid stagger-children">
+                <div class="service-card reveal skel skel-card">
+                    <div class="service-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI Agents Development</h3>
+                    <p>Custom intelligent agents and RPA solutions that automate complex business processes and handle customer interactions.</p>
+                    <a href="services.html" class="link-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Process Automation</h3>
+                    <p>End-to-end automation solutions that streamline workflows and eliminate human errors.</p>
+                    <a href="services.html" class="link-more">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>SaaS Solutions</h3>
+                    <p>Scalable cloud-based platforms that provide powerful AI capabilities without complexity.</p>
+                    <a href="services.html" class="link-more">Discover <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Custom Applications</h3>
+                    <p>Tailored applications built to your exact specifications with AI and automation features.</p>
+                    <a href="services.html" class="link-more">See More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>AI Products</h3>
+                    <p>Ready-to-use AI products and tools for immediate integration into your business operations.</p>
+                    <a href="services.html" class="link-more">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Consultation &amp; Support</h3>
+                    <p>Expert guidance and ongoing support to ensure your AI initiatives deliver maximum value.</p>
+                    <a href="services.html" class="link-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="section-cta reveal"><a href="services.html" class="btn btn-primary">View All Services</a></div>
+        </div>
+    </section>
+
+    <hr class="sep-line">
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="deco-blob deco-blob-tr"></div>
+        <div class="deco-cross deco-cross-bl"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title skel skel-text">Our <span class="gradient-text">Products</span></h2>
+                <p class="section-subtitle">Powerful AI-driven products designed to accelerate your digital transformation</p>
+            </div>
+            <div class="products-grid stagger-children">
+                <div class="product-card reveal">
+                    <div class="product-icon"><i class="fas fa-language"></i></div>
+                    <div><h3>HARK AI</h3><p>AI-powered multilingual translation platform for audio, video, and documents with high accuracy.</p><a href="products.html" class="link-more">Learn More <i class="fas fa-arrow-right"></i></a></div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon"><i class="fas fa-tools"></i></div>
+                    <div><h3>Chief AI</h3><p>AI assistant for chief engineers to troubleshoot machinery issues and access critical information.</p><a href="products.html" class="link-more">Learn More <i class="fas fa-arrow-right"></i></a></div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon"><i class="fas fa-heartbeat"></i></div>
+                    <div><h3>Medic AI</h3><p>Life sciences compliance and investigation platform with AI-driven regulatory insights.</p><a href="products.html" class="link-more">Learn More <i class="fas fa-arrow-right"></i></a></div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon"><i class="fas fa-headset"></i></div>
+                    <div><h3>Deep Sense AI</h3><p>Intelligent BPO automation platform that enhances customer interactions and agent performance.</p><a href="products.html" class="link-more">Learn More <i class="fas fa-arrow-right"></i></a></div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon"><i class="fas fa-file-invoice"></i></div>
+                    <div><h3>MBRS AI</h3><p>Automated MBRS data mapping and SSM submissions for accountants and auditors.</p><a href="products.html" class="link-more">Learn More <i class="fas fa-arrow-right"></i></a></div>
+                </div>
+            </div>
+            <div class="section-cta reveal"><a href="products.html" class="btn btn-primary" style="margin-bottom:36px;">View All Products</a></div>
+            <div class="custom-cta reveal">
+                <h3>Need a Custom Solution?</h3>
+                <p>We build tailored AI products designed specifically for your business needs</p>
+                <a href="contact.html" class="btn btn-primary" style="position:relative;">Request Custom Product</a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="sep-line">
+
+    <!-- Beyond Borders -->
+    <section class="beyond-borders" id="beyond-borders">
+        <div class="deco-ring deco-ring-tr"></div>
+        <div class="deco-dots deco-dots-bl"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Beyond <span class="gradient-text">Borders</span></h2>
+                <p class="section-subtitle">Serving clients worldwide with local expertise and global standards</p>
+            </div>
+            <div class="contact-grid stagger-children" style="margin-bottom: 40px;">
+                <div class="contact-item reveal">
+                    <div class="contact-ico" style="background:rgba(239,68,68,.08);color:#ef4444;"><i class="fas fa-building"></i></div>
+                    <div class="contact-dets"><h4>Malaysia</h4><p>Global Headquarters<br>Kuala Lumpur</p></div>
+                </div>
+                <div class="contact-item reveal">
+                    <div class="contact-ico" style="background:rgba(122,193,67,.08);color:var(--green);"><i class="fas fa-code"></i></div>
+                    <div class="contact-dets"><h4>India</h4><p>Development Center<br>Bangalore &amp; Hyderabad</p></div>
+                </div>
+                <div class="contact-item reveal">
+                    <div class="contact-ico" style="background:rgba(240,90,40,.08);color:var(--orange);"><i class="fas fa-handshake"></i></div>
+                    <div class="contact-dets"><h4>Poland</h4><p>EU Operations<br>Warsaw</p></div>
+                </div>
+            </div>
+            <div class="contact-grid stagger-children" style="max-width:680px; margin: 0 auto 40px; grid-template-columns: 1fr;">
+                <div class="contact-item reveal" style="justify-content:center;">
+                    <div class="contact-ico" style="background:rgba(139,92,246,.08);color:#8b5cf6;"><i class="fas fa-flag"></i></div>
+                    <div class="contact-dets"><h4>USA</h4><p>Americas Office<br>New York</p></div>
+                </div>
+            </div>
+            <div class="global-stats stagger-children">
+                <div class="stat-card reveal"><div class="emoji">🌍</div><div class="num" data-count="4">0</div><div class="lbl">Countries</div></div>
+                <div class="stat-card reveal"><div class="emoji">🤝</div><div class="num">10+</div><div class="lbl">Clients</div></div>
+                <div class="stat-card reveal"><div class="emoji">🔧</div><div class="num">24/7</div><div class="lbl">Support</div></div>
+                <div class="stat-card reveal"><div class="emoji">⚡</div><div class="num">99.9%</div><div class="lbl">Uptime</div></div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="sep-line">
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="deco-blob deco-blob-bl"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Client <span class="gradient-text">Success Stories</span></h2>
+                <p class="section-subtitle">Real results from businesses we've transformed with AI</p>
+            </div>
+            <div class="testi-carousel reveal" id="testiCarousel">
+                <div class="testi-track" id="testiTrack">
+                    <div class="testi-slide">
+                        <div class="testi-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="testi-rating"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><span class="rating-txt">5.0</span></div>
+                            <blockquote>"Beyond AI Gen transformed our customer service operations with their intelligent AI agents. The automation reduced response time by 80% and significantly improved customer satisfaction."</blockquote>
+                            <div class="testi-author"><div class="author-av">GK</div><div class="author-info"><h4>Girish Kumar</h4><span>CEO, CognitBotz Solutions</span></div><div class="verified"><i class="fas fa-check-circle"></i></div></div>
+                        </div>
+                    </div>
+                    <div class="testi-slide">
+                        <div class="testi-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="testi-rating"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><span class="rating-txt">5.0</span></div>
+                            <blockquote>"Their custom automation solution streamlined our entire workflow. What used to take hours now happens in minutes. The ROI was evident within the first month of implementation."</blockquote>
+                            <div class="testi-author"><div class="author-av">SK</div><div class="author-info"><h4>Confidential</h4><span>Vice President, Confidential</span></div><div class="verified"><i class="fas fa-check-circle"></i></div></div>
+                        </div>
+                    </div>
+                    <div class="testi-slide">
+                        <div class="testi-inner">
+                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                            <div class="testi-rating"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><span class="rating-txt">5.0</span></div>
+                            <blockquote>"The SaaS platform they developed for us has revolutionized how we manage our business processes. The AI insights have helped us make better data-driven decisions."</blockquote>
+                            <div class="testi-author"><div class="author-av">SR</div><div class="author-info"><h4>Srinivas</h4><span>Co-founder, SLNS Constructions</span></div><div class="verified"><i class="fas fa-check-circle"></i></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-ctrls reveal">
+                <button class="c-btn" id="cPrev"><i class="fas fa-chevron-left"></i></button>
+                <div class="c-dots" id="cDots">
+                    <button class="c-dot on" data-i="0"></button>
+                    <button class="c-dot" data-i="1"></button>
+                    <button class="c-dot" data-i="2"></button>
+                </div>
+                <button class="c-btn" id="cNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <hr class="sep-line">
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="deco-cross deco-cross-tr"></div>
+        <div class="deco-ring deco-ring-bl" style="opacity:.4;"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
+                <p class="section-subtitle">Ready to transform your business? Let's talk.</p>
+            </div>
+            <div class="contact-grid stagger-children">
+                <div class="contact-item reveal">
+                    <div class="contact-ico"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-dets"><h4>Email Us</h4><p><a href="mailto:bhaskar@beyondaigen.com">bhaskar@beyondaigen.com</a></p></div>
+                </div>
+                <div class="contact-item reveal">
+                    <div class="contact-ico"><i class="fas fa-phone"></i></div>
+                    <div class="contact-dets"><h4>Call Us</h4><p><a href="tel:+601121473088">+60 11-2147-3088</a></p></div>
+                </div>
+                <div class="contact-item reveal">
+                    <div class="contact-ico"><i class="fab fa-whatsapp"></i></div>
+                    <div class="contact-dets"><h4>WhatsApp</h4><p><a href="https://wa.me/601121473088" target="_blank">+60 11-2147-3088</a></p></div>
+                </div>
+            </div>
+            <div class="contact-cta reveal">
+                <p class="cta-text">Have a project in mind? Let's make it happen!</p>
+                <a href="contact.html" class="btn btn-primary" style="position:relative;"><i class="fas fa-paper-plane"></i> Send Us a Message</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="baiglogo.png" alt="Beyond AI Gen" class="logo-img" />
+                        <span class="logo-text">Beyond AI Gen</span>
+                    </div>
+                    <p>Transforming businesses through intelligent AI solutions, one automation at a time.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/beyond-ai-gen" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://twitter.com/beyondaigen" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/beyondaigen" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://github.com/beyondaigen" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://wa.me/601121473088" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">AI Agents Development</a></li>
+                        <li><a href="services.html">Process Automation</a></li>
+                        <li><a href="services.html">SaaS Solutions</a></li>
+                        <li><a href="services.html">Custom Applications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-envelope"></i> bhaskar@beyondaigen.com</p>
+                        <p><i class="fas fa-phone"></i> +60 11-2147-3088</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Trion KL, Chan Sow Lin<br>&nbsp;&nbsp;&nbsp;&nbsp; 55200 Kuala Lumpur, Malaysia</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Beyond AI Gen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/601121473088?text=Hi%2C%20I%27m%20interested%20in%20your%20AI%20solutions" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <script src="script.js"></script>
+</body>
+</html>
