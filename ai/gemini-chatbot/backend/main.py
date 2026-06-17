@@ -21,8 +21,8 @@ load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY or GEMINI_API_KEY == "your-api-key-here":
-    print("⚠️  WARNING: GEMINI_API_KEY not set. Update your .env file with a valid key.")
-    print("   Get one free at: https://aistudio.google.com/apikey")
+    print("[WARNING] GEMINI_API_KEY not set. Update your .env file with a valid key.")
+    print("          Get one free at: https://aistudio.google.com/apikey")
 
 # Initialize Gemini client
 client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
