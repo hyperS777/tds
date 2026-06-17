@@ -1,5 +1,7 @@
 name = "aichatbot"
 compatibility_date = "2025-06-01"
+main = "src/worker.js"
 
 [assets]
 directory = "./out"
+binding = "ASSETS"
