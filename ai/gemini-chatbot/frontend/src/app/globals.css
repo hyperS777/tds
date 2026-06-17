@@ -71,6 +71,14 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+}
+
 html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -82,9 +90,6 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
 }
 
 /* ─── Scrollbar ───────────────────────────────────────────────────────────── */
@@ -111,6 +116,7 @@ body {
 .app-layout {
   display: flex;
   height: 100vh;
+  height: 100dvh;
   width: 100vw;
   overflow: hidden;
 }
@@ -121,6 +127,7 @@ body {
   width: var(--sidebar-width);
   min-width: var(--sidebar-width);
   height: 100vh;
+  height: 100dvh;
   background: var(--bg-secondary);
   border-right: 1px solid var(--surface-glass-border);
   display: flex;
@@ -264,6 +271,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
   min-width: 0;
   position: relative;
   background: var(--bg-primary);
@@ -600,8 +608,10 @@ body {
 
 .chat-input-area {
   padding: var(--space-md) var(--space-lg) var(--space-lg);
+  padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom, 0px));
   z-index: 10;
   position: relative;
+  flex-shrink: 0;
 }
 
 .chat-input-wrapper {
