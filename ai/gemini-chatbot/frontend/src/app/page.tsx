@@ -136,7 +136,7 @@ export default function Home() {
         onError: (error) => {
           updateLastMessage(
             convId!,
-            () => `⚠️ Error: ${error}\n\nMake sure the backend server is running on port 8000.`
+            () => `⚠️ Error: ${error}\n\nMake sure GEMINI_API_KEY is configured as a Cloudflare Worker secret.`
           );
           setIsStreaming(false);
           abortControllerRef.current = null;
