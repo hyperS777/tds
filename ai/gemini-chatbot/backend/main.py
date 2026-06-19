@@ -69,7 +69,7 @@ class ChatRequest(BaseModel):
 @app.get("/api/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "ok", "model": "gemini-2.0-flash"}
+    return {"status": "ok", "model": "gemini-1.5-flash"}
 
 
 @app.post("/api/chat")
@@ -104,7 +104,7 @@ async def chat(request: ChatRequest):
 
             # Stream the response from Gemini
             async for chunk in client.aio.models.generate_content_stream(
-                model="gemini-2.0-flash",
+                model="gemini-1.5-flash",
                 contents=contents,
                 config=genai.types.GenerateContentConfig(
                     system_instruction=SYSTEM_INSTRUCTION,
