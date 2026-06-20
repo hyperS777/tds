@@ -7,6 +7,7 @@ Provides a streaming chat API endpoint powered by Google's Gemini AI.
 import os
 import json
 import asyncio
+import logging
 from typing import AsyncGenerator
 
 from dotenv import load_dotenv
@@ -69,7 +70,7 @@ class ChatRequest(BaseModel):
 @app.get("/api/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "ok", "model": "gemini-1.5-flash"}
+    return {"status": "ok", "model": "gemini-2.0-flash"}
 
 
 @app.post("/api/chat")
@@ -88,10 +89,11 @@ async def chat(request: ChatRequest):
         raise HTTPException(status_code=400, detail="Messages list cannot be empty.")
 
     async def event_generator() -> AsyncGenerator[dict, None]:
+        max_retries = 3
+        retry_delay = 5  # seconds
+
         try:
             # Build the contents list for Gemini
-            # The last message is the user's new message
-            # Previous messages form the conversation history
             contents = []
             for msg in request.messages:
                 role = "user" if msg.role == "user" else "model"
@@ -102,32 +104,64 @@ async def chat(request: ChatRequest):
                     )
                 )
 
-            # Stream the response from Gemini
-            async for chunk in client.aio.models.generate_content_stream(
-                model="gemini-1.5-flash",
-                contents=contents,
-                config=genai.types.GenerateContentConfig(
-                    system_instruction=SYSTEM_INSTRUCTION,
-                    temperature=0.7,
-                    max_output_tokens=8192,
-                ),
-            ):
-                if chunk.text:
-                    yield {
-                        "event": "message",
-                        "data": json.dumps({"text": chunk.text}),
-                    }
+            # Retry loop for rate-limit errors
+            for attempt in range(max_retries):
+                try:
+                    # Stream the response from Gemini
+                    async for chunk in client.aio.models.generate_content_stream(
+                        model="gemini-2.0-flash",
+                        contents=contents,
+                        config=genai.types.GenerateContentConfig(
+                            system_instruction=SYSTEM_INSTRUCTION,
+                            temperature=0.7,
+                            max_output_tokens=8192,
+                        ),
+                    ):
+                        if chunk.text:
+                            yield {
+                                "event": "message",
+                                "data": json.dumps({"text": chunk.text}),
+                            }
 
-            # Send a done event
-            yield {
-                "event": "done",
-                "data": json.dumps({"status": "complete"}),
-            }
+                    # Send a done event
+                    yield {
+                        "event": "done",
+                        "data": json.dumps({"status": "complete"}),
+                    }
+                    return  # Success — exit the retry loop
+
+                except Exception as e:
+                    error_str = str(e)
+                    is_rate_limit = "429" in error_str or "RESOURCE_EXHAUSTED" in error_str
+
+                    if is_rate_limit and attempt < max_retries - 1:
+                        wait = retry_delay * (2 ** attempt)  # exponential backoff
+                        logging.warning(
+                            f"Rate limited (attempt {attempt + 1}/{max_retries}). "
+                            f"Retrying in {wait}s..."
+                        )
+                        yield {
+                            "event": "message",
+                            "data": json.dumps(
+                                {"text": f"\n⏳ Rate limited — retrying in {wait}s...\n"}
+                            ),
+                        }
+                        await asyncio.sleep(wait)
+                        continue
+                    else:
+                        raise  # Re-raise if not retryable or out of attempts
 
         except Exception as e:
+            error_msg = str(e)
+            if "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
+                error_msg = (
+                    "Gemini API rate limit exceeded. Your free tier quota may be "
+                    "exhausted for today. Please wait a few minutes and try again, "
+                    "or upgrade your plan at https://aistudio.google.com/"
+                )
             yield {
                 "event": "error",
-                "data": json.dumps({"error": str(e)}),
+                "data": json.dumps({"error": error_msg}),
             }
 
     return EventSourceResponse(event_generator())
