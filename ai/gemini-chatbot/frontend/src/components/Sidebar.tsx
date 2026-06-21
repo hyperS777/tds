@@ -36,8 +36,8 @@ export default function Sidebar({
       <aside className={`sidebar ${isOpen ? "open" : ""}`} id="sidebar">
         <div className="sidebar-header">
           <div className="sidebar-brand">
-            <div className="sidebar-logo">G</div>
-            <span className="sidebar-title">Gemini Chat</span>
+            <div className="sidebar-logo">N</div>
+            <span className="sidebar-title">Nova AI</span>
           </div>
           <button
             id="new-chat-button"
@@ -45,7 +45,7 @@ export default function Sidebar({
             onClick={onNewChat}
           >
             <span className="icon">＋</span>
-            New Chat
+            <span>New Chat</span>
           </button>
         </div>
 
@@ -53,13 +53,14 @@ export default function Sidebar({
           {conversations.length === 0 ? (
             <div
               style={{
-                padding: "16px",
+                padding: "24px 16px",
                 fontSize: "13px",
                 color: "var(--text-tertiary)",
                 textAlign: "center",
+                lineHeight: "1.6",
               }}
             >
-              No conversations yet
+              Start a conversation to see your chat history here
             </div>
           ) : (
             conversations.map((conv) => (
@@ -78,7 +79,7 @@ export default function Sidebar({
         </div>
 
         <div className="sidebar-footer">
-          Powered by Gemini 2.0 Flash
+          Powered by Llama 3.3 70B · Groq
         </div>
       </aside>
     </>

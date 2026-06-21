@@ -1,6 +1,5 @@
 "use client";
 
-
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -18,7 +17,9 @@ export default function ChatMessage({
   const isUser = role === "user";
 
   const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text).then(() => {
+      // Visual feedback could be added here
+    });
   };
 
   return (
@@ -31,7 +32,7 @@ export default function ChatMessage({
       {/* Content */}
       <div className="message-content">
         <div className={`message-role ${isUser ? "user" : "ai"}`}>
-          {isUser ? "You" : "Gemini"}
+          {isUser ? "You" : "Nova"}
         </div>
 
         <div

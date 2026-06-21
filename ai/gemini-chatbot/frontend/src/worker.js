@@ -1,15 +1,17 @@
 /**
- * Cloudflare Worker — Gemini Chat API
- * Replaces the Python FastAPI backend.
- * Streams Gemini responses as SSE to the frontend.
+ * Cloudflare Worker — AI Chat API (Groq)
+ * Streams AI responses as SSE to the frontend.
+ * Uses Groq's free API with Llama 3.3 70B.
  */
 
 const SYSTEM_INSTRUCTION =
-  "You are Gemini, a helpful and friendly AI assistant. " +
+  "You are a helpful and friendly AI assistant. " +
   "You provide clear, concise, and accurate answers. " +
   "You can help with coding, writing, analysis, math, and general questions. " +
   "Format your responses using markdown when appropriate — use code blocks, " +
   "bold text, lists, and headers to make your answers easy to read.";
+
+const GROQ_MODEL = "llama-3.3-70b-versatile";
 
 // CORS headers
 const corsHeaders = {
@@ -30,7 +32,7 @@ export default {
     // Health check
     if (url.pathname === "/api/health" && request.method === "GET") {
       return Response.json(
-        { status: "ok", model: "gemini-2.0-flash" },
+        { status: "ok", model: GROQ_MODEL },
         { headers: corsHeaders }
       );
     }
@@ -46,10 +48,10 @@ export default {
 };
 
 async function handleChat(request, env) {
-  const apiKey = env.GEMINI_API_KEY;
+  const apiKey = env.GROQ_API_KEY;
   if (!apiKey) {
     return Response.json(
-      { detail: "GEMINI_API_KEY not configured. Add it as a secret in your Cloudflare Worker." },
+      { detail: "GROQ_API_KEY not configured. Add it as a secret in your Cloudflare Worker." },
       { status: 500, headers: corsHeaders }
     );
   }
@@ -72,48 +74,51 @@ async function handleChat(request, env) {
     );
   }
 
-  // Build the Gemini API request
-  const contents = messages.map((msg) => ({
-    role: msg.role === "user" ? "user" : "model",
-    parts: [{ text: msg.content }],
-  }));
+  // Build the Groq API request (OpenAI-compatible format)
+  const groqMessages = [
+    { role: "system", content: SYSTEM_INSTRUCTION },
+    ...messages.map((msg) => ({
+      role: msg.role === "user" ? "user" : "assistant",
+      content: msg.content,
+    })),
+  ];
 
-  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
+  const groqUrl = "https://api.groq.com/openai/v1/chat/completions";
 
-  const geminiBody = {
-    contents,
-    systemInstruction: {
-      parts: [{ text: SYSTEM_INSTRUCTION }],
-    },
-    generationConfig: {
-      temperature: 0.7,
-      maxOutputTokens: 8192,
-    },
+  const groqBody = {
+    model: GROQ_MODEL,
+    messages: groqMessages,
+    temperature: 0.7,
+    max_tokens: 8192,
+    stream: true,
   };
 
   try {
-    const geminiResponse = await fetch(geminiUrl, {
+    const groqResponse = await fetch(groqUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(geminiBody),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(groqBody),
     });
 
-    if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
+    if (!groqResponse.ok) {
+      const errorText = await groqResponse.text();
       return Response.json(
-        { detail: `Gemini API error: ${geminiResponse.status} — ${errorText}` },
+        { detail: `Groq API error: ${groqResponse.status} — ${errorText}` },
         { status: 502, headers: corsHeaders }
       );
     }
 
-    // Stream the Gemini SSE response, re-formatting it for our frontend
+    // Stream the Groq SSE response, re-formatting it for our frontend
     const { readable, writable } = new TransformStream();
     const writer = writable.getWriter();
     const encoder = new TextEncoder();
 
     // Process in background
     (async () => {
-      const reader = geminiResponse.body.getReader();
+      const reader = groqResponse.body.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
 
@@ -129,11 +134,11 @@ async function handleChat(request, env) {
           for (const line of lines) {
             if (line.startsWith("data: ")) {
               const dataStr = line.slice(6).trim();
-              if (!dataStr) continue;
+              if (!dataStr || dataStr === "[DONE]") continue;
 
               try {
                 const data = JSON.parse(dataStr);
-                const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                const text = data?.choices?.[0]?.delta?.content;
                 if (text) {
                   await writer.write(
                     encoder.encode(
@@ -175,7 +180,7 @@ async function handleChat(request, env) {
     });
   } catch (err) {
     return Response.json(
-      { detail: `Failed to connect to Gemini API: ${err.message}` },
+      { detail: `Failed to connect to Groq API: ${err.message}` },
       { status: 502, headers: corsHeaders }
     );
   }

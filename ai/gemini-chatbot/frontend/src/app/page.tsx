@@ -136,7 +136,7 @@ export default function Home() {
         onError: (error) => {
           updateLastMessage(
             convId!,
-            () => `⚠️ Error: ${error}\n\nMake sure GEMINI_API_KEY is configured as a Cloudflare Worker secret.`
+            () => `⚠️ Error: ${error}\n\nPlease check your API configuration.`
           );
           setIsStreaming(false);
           abortControllerRef.current = null;
@@ -208,7 +208,7 @@ export default function Home() {
           <div className="chat-header-info">
             <div className="model-badge">
               <span className="dot" />
-              Gemini 2.0 Flash
+              Llama 3.3 · 70B
             </div>
           </div>
         </div>
@@ -217,9 +217,9 @@ export default function Home() {
         {messages.length === 0 ? (
           <div className="welcome-screen">
             <div className="welcome-icon">✦</div>
-            <h1 className="welcome-title">Hello! I&apos;m Gemini</h1>
+            <h1 className="welcome-title">Hello! I&apos;m Nova</h1>
             <p className="welcome-subtitle">
-              Your AI assistant powered by Google&apos;s Gemini 2.0 Flash.
+              Your AI assistant powered by Llama 3.3 70B.
               Ask me anything — coding, writing, analysis, or creative tasks.
             </p>
             <div className="welcome-suggestions">
@@ -260,7 +260,7 @@ export default function Home() {
                   <div className="message">
                     <div className="message-avatar ai">✦</div>
                     <div className="message-content">
-                      <div className="message-role ai">Gemini</div>
+                      <div className="message-role ai">Nova</div>
                       <div className="typing-indicator">
                         <div className="typing-dot" />
                         <div className="typing-dot" />
@@ -282,7 +282,7 @@ export default function Home() {
           onSend={handleSend}
           disabled={isStreaming}
           placeholder={
-            isStreaming ? "Gemini is thinking..." : "Message Gemini..."
+            isStreaming ? "Nova is thinking..." : "Message Nova..."
           }
         />
       </main>
