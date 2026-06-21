@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nova AI — Intelligent Chat Assistant",
+  title: "AI Chatbot — Intelligent Assistant",
   description:
-    "Chat with Nova AI. A beautiful, fast, and intelligent chatbot powered by Llama 3.3 70B via Groq.",
-  keywords: ["nova", "AI", "chatbot", "llama", "groq", "assistant"],
+    "Chat with AI Chatbot. A beautiful, fast, and intelligent chatbot powered by Llama 3.3 70B via Groq.",
+  keywords: ["AI", "chatbot", "llama", "groq", "assistant"],
   openGraph: {
-    title: "Nova AI — Chat Assistant",
+    title: "AI Chatbot",
     description: "Your intelligent AI assistant powered by Llama 3.3 70B",
     type: "website",
   },

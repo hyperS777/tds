@@ -32,7 +32,7 @@ export default function ChatMessage({
       {/* Content */}
       <div className="message-content">
         <div className={`message-role ${isUser ? "user" : "ai"}`}>
-          {isUser ? "You" : "Nova"}
+          {isUser ? "You" : "AI"}
         </div>
 
         <div

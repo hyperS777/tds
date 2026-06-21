@@ -958,9 +958,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-2xl);
+  padding: var(--space-lg);
   z-index: 1;
   animation: welcome-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
 @keyframes welcome-in {
@@ -969,18 +970,19 @@ body {
 }
 
 .welcome-icon {
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   border-radius: var(--radius-xl);
   background: var(--accent-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36px;
-  margin-bottom: var(--space-xl);
+  font-size: 28px;
+  margin-bottom: var(--space-lg);
   box-shadow: var(--shadow-glow-strong);
   animation: icon-float 5s ease-in-out infinite;
   position: relative;
+  flex-shrink: 0;
 }
 
 /* Icon ring pulse */
@@ -1007,9 +1009,9 @@ body {
 }
 
 .welcome-title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 800;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   background: var(--accent-gradient-warm);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1019,12 +1021,12 @@ body {
 }
 
 .welcome-subtitle {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-secondary);
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
   text-align: center;
-  max-width: 440px;
-  line-height: 1.7;
+  max-width: 420px;
+  line-height: 1.6;
 }
 
 .welcome-suggestions {
@@ -1036,7 +1038,7 @@ body {
 }
 
 .suggestion-card {
-  padding: var(--space-lg);
+  padding: var(--space-md);
   background: var(--surface-glass);
   border: 1px solid var(--surface-glass-border);
   border-radius: var(--radius-lg);

@@ -217,10 +217,9 @@ export default function Home() {
         {messages.length === 0 ? (
           <div className="welcome-screen">
             <div className="welcome-icon">✦</div>
-            <h1 className="welcome-title">Hello! I&apos;m Nova</h1>
+            <h1 className="welcome-title">AI Chatbot</h1>
             <p className="welcome-subtitle">
-              Your AI assistant powered by Llama 3.3 70B.
-              Ask me anything — coding, writing, analysis, or creative tasks.
+              Powered by Llama 3.3 70B. Ask me anything — coding, writing, analysis, or creative tasks.
             </p>
             <div className="welcome-suggestions">
               {SUGGESTIONS.map((s, i) => (
@@ -260,7 +259,7 @@ export default function Home() {
                   <div className="message">
                     <div className="message-avatar ai">✦</div>
                     <div className="message-content">
-                      <div className="message-role ai">Nova</div>
+                      <div className="message-role ai">AI</div>
                       <div className="typing-indicator">
                         <div className="typing-dot" />
                         <div className="typing-dot" />
@@ -282,7 +281,7 @@ export default function Home() {
           onSend={handleSend}
           disabled={isStreaming}
           placeholder={
-            isStreaming ? "Nova is thinking..." : "Message Nova..."
+            isStreaming ? "AI is thinking..." : "Message AI..."
           }
         />
       </main>

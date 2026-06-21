@@ -36,8 +36,8 @@ export default function Sidebar({
       <aside className={`sidebar ${isOpen ? "open" : ""}`} id="sidebar">
         <div className="sidebar-header">
           <div className="sidebar-brand">
-            <div className="sidebar-logo">N</div>
-            <span className="sidebar-title">Nova AI</span>
+            <div className="sidebar-logo">AI</div>
+            <span className="sidebar-title">AI Chatbot</span>
           </div>
           <button
             id="new-chat-button"
