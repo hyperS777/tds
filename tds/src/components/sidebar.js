@@ -28,10 +28,10 @@ export function renderSidebar(container) {
   sidebar.className = 'sidebar';
   sidebar.innerHTML = `
     <div class="sidebar-header">
-      <div class="sidebar-logo">
+      <a href="#/" class="sidebar-logo" style="text-decoration: none;" aria-label="Go to home">
         <div class="sidebar-logo-icon">${logoSVG(18)}</div>
         <span>TDS</span>
-      </div>
+      </a>
     </div>
     <nav class="sidebar-nav">
       <div class="sidebar-section-label">${auth.role === 'supervisor' ? 'Command Center' : 'Driver Portal'}</div>
