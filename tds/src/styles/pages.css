@@ -594,6 +594,7 @@
 
 .navbar-notification-btn {
   position: relative;
+  overflow: visible !important;
 }
 .navbar-notification-count {
   position: absolute;
@@ -798,11 +799,11 @@
 .driver-current-delivery::after {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, var(--color-primary-glow), transparent);
+  top: -50%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--color-primary-glow) 0%, transparent 60%);
   pointer-events: none;
 }
 

@@ -65,7 +65,7 @@ function renderContent(content, driverId, cleanups) {
           🕐 ETA: ${etaRemaining > 0 ? formatHours(etaRemaining) : 'Arriving'}
         </div>
         <div class="route-info-chip glass-strong" style="color: var(--color-text-primary);">
-          📍 ${distRemaining} mi remaining
+          📍 ${distRemaining} km remaining
         </div>
         <div class="route-info-chip glass-strong" style="color: var(--color-text-primary);">
           ${getWeatherIcon(activeDelivery.weather)} ${activeDelivery.weather}
@@ -121,13 +121,13 @@ function renderContent(content, driverId, cleanups) {
 
 function generateSimulatedDirections(delivery) {
   const directions = [
-    { icon: '🟢', text: `Depart from ${delivery.origin.name}`, dist: '0 mi', active: false },
-    { icon: '↗️', text: 'Merge onto Interstate Highway', dist: `${Math.round(delivery.estimatedDistance * 0.1)} mi`, active: false },
-    { icon: '➡️', text: 'Continue on highway — maintain lane', dist: `${Math.round(delivery.estimatedDistance * 0.3)} mi`, active: delivery.progress > 20 && delivery.progress < 50 },
-    { icon: '⛽', text: 'Fuel station available — right side', dist: `${Math.round(delivery.estimatedDistance * 0.45)} mi`, active: false },
-    { icon: '➡️', text: 'Continue straight for next stretch', dist: `${Math.round(delivery.estimatedDistance * 0.6)} mi`, active: delivery.progress > 50 && delivery.progress < 75 },
-    { icon: '↘️', text: `Take exit toward ${delivery.destination.name.split(' ')[0]}`, dist: `${Math.round(delivery.estimatedDistance * 0.85)} mi`, active: delivery.progress > 75 },
-    { icon: '🔴', text: `Arrive at ${delivery.destination.name}`, dist: `${delivery.estimatedDistance} mi`, active: false },
+    { icon: '🟢', text: `Depart from ${delivery.origin.name}`, dist: '0 km', active: false },
+    { icon: '↗️', text: 'Merge onto Interstate Highway', dist: `${Math.round(delivery.estimatedDistance * 0.1)} km`, active: false },
+    { icon: '➡️', text: 'Continue on highway — maintain lane', dist: `${Math.round(delivery.estimatedDistance * 0.3)} km`, active: delivery.progress > 20 && delivery.progress < 50 },
+    { icon: '⛽', text: 'Fuel station available — right side', dist: `${Math.round(delivery.estimatedDistance * 0.45)} km`, active: false },
+    { icon: '➡️', text: 'Continue straight for next stretch', dist: `${Math.round(delivery.estimatedDistance * 0.6)} km`, active: delivery.progress > 50 && delivery.progress < 75 },
+    { icon: '↘️', text: `Take exit toward ${delivery.destination.name.split(' ')[0]}`, dist: `${Math.round(delivery.estimatedDistance * 0.85)} km`, active: delivery.progress > 75 },
+    { icon: '🔴', text: `Arrive at ${delivery.destination.name}`, dist: `${delivery.estimatedDistance} km`, active: false },
   ];
 
   return directions.map(d => `

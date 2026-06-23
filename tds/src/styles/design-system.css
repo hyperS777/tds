@@ -18,22 +18,22 @@
   --color-border-hover: rgba(255, 255, 255, 0.15);
   --color-border-glass: rgba(255, 255, 255, 0.06);
 
-  --color-primary: #2d9d92;
-  --color-primary-light: #45b8ad;
-  --color-primary-dark: #228a80;
-  --color-primary-glow: rgba(45, 157, 146, 0.2);
+  --color-primary: #3d8c83;
+  --color-primary-light: #52a69d;
+  --color-primary-dark: #2a6962;
+  --color-primary-glow: rgba(61, 140, 131, 0.2);
 
-  --color-success: #3da86a;
-  --color-success-light: #56c47f;
-  --color-success-glow: rgba(61, 168, 106, 0.2);
+  --color-success: #479164;
+  --color-success-light: #5cb580;
+  --color-success-glow: rgba(71, 145, 100, 0.2);
 
-  --color-warning: #d4942a;
-  --color-warning-light: #e6ad4a;
-  --color-warning-glow: rgba(212, 148, 42, 0.2);
+  --color-warning: #c28b32;
+  --color-warning-light: #d69f45;
+  --color-warning-glow: rgba(194, 139, 50, 0.2);
 
-  --color-danger: #c9483a;
-  --color-danger-light: #e06558;
-  --color-danger-glow: rgba(201, 72, 58, 0.2);
+  --color-danger: #b84e42;
+  --color-danger-light: #d15c4f;
+  --color-danger-glow: rgba(184, 78, 66, 0.2);
 
   --color-info: #7c6db5;
   --color-info-light: #9688c9;
@@ -122,13 +122,13 @@
 
   /* Z-index layers */
   --z-base: 1;
-  --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-navbar: 300;
-  --z-sidebar: 350;
-  --z-modal: 500;
-  --z-toast: 600;
-  --z-tooltip: 700;
+  --z-dropdown: 1050;
+  --z-sticky: 1020;
+  --z-navbar: 1030;
+  --z-sidebar: 1040;
+  --z-modal: 1060;
+  --z-toast: 1070;
+  --z-tooltip: 1080;
 }
 
 /* ---------- Reset & Base ---------- */

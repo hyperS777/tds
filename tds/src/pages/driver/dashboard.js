@@ -88,7 +88,7 @@ function renderContent(content, driverId, cleanups) {
           </div>
           <div class="delivery-detail">
             <span class="delivery-detail-label">Distance</span>
-            <span class="delivery-detail-value">${activeDelivery.estimatedDistance} mi</span>
+            <span class="delivery-detail-value">${activeDelivery.estimatedDistance} km</span>
           </div>
           <div class="delivery-detail">
             <span class="delivery-detail-label">Load</span>
@@ -179,7 +179,7 @@ function renderContent(content, driverId, cleanups) {
               <div style="font-size: 24px;">📦</div>
               <div style="flex: 1;">
                 <div style="font-size: 14px; font-weight: 600;">${del.destination.name}</div>
-                <div style="font-size: 12px; color: var(--color-text-muted);">${del.package.description} · ${del.estimatedDistance} mi</div>
+                <div style="font-size: 12px; color: var(--color-text-muted);">${del.package.description} · ${del.estimatedDistance} km</div>
               </div>
               <div style="text-align: right;">
                 <div class="text-mono" style="font-size: 13px; font-weight: 600;">${formatHours(del.estimatedTime)}</div>

@@ -316,7 +316,7 @@ function renderActiveDeliveryRows(deliveries, drivers, trucks) {
           </td>
           <td>
             <div style="font-size: 12px; color: var(--color-text-primary);">${del.destination.name}</div>
-            <div style="font-size: 11px; color: var(--color-text-muted);">${del.estimatedDistance} mi</div>
+            <div style="font-size: 11px; color: var(--color-text-muted);">${del.estimatedDistance} km</div>
           </td>
           <td><span class="badge badge-dot badge-${statusInfo.color}">${statusInfo.label}</span></td>
           <td>

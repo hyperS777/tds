@@ -105,7 +105,7 @@ function renderDeliveryCards(deliveries, type) {
               </div>
               <div>
                 <span style="color: var(--color-text-muted);">Distance: </span>
-                <span class="text-mono" style="font-weight: 600;">${del.estimatedDistance} mi</span>
+                <span class="text-mono" style="font-weight: 600;">${del.estimatedDistance} km</span>
               </div>
               <div>
                 <span style="color: var(--color-text-muted);">Est. Time: </span>

@@ -242,7 +242,7 @@ export function getTruckHealthColor(value) {
 export function formatDistance(km) {
   if (km == null) return '--';
   if (km < 1) return `${Math.round(km * 1000)}m`;
-  return `${Math.round(km)} mi`;
+  return `${Math.round(km)} km`;
 }
 
 /**

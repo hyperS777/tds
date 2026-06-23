@@ -175,7 +175,7 @@ export function createDistanceChart(canvasId, distData) {
     data: {
       labels: distData.labels,
       datasets: [{
-        label: 'Distance (mi)',
+        label: 'Distance (km)',
         data: distData.values,
         borderColor: '#8b5cf6',
         backgroundColor: (context) => {
