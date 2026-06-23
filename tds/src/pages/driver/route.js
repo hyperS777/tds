@@ -4,7 +4,7 @@
 import { store } from '../../store.js';
 import { renderNavbar } from '../../components/navbar.js';
 import { renderSidebar } from '../../components/sidebar.js';
-import { createDriverRouteMap } from '../../components/map.js';
+import { createDriverDetailsMap } from '../../components/map.js';
 import { formatHours, formatTime, getWeatherIcon } from '../../utils/helpers.js';
 
 export function renderDriverRoute(container) {
@@ -112,7 +112,7 @@ function renderContent(content, driverId, cleanups) {
 
   // Initialize map
   setTimeout(() => {
-    const mapResult = createDriverRouteMap('driver-route-map', driverId);
+    const mapResult = createDriverDetailsMap('driver-route-map', driverId);
     if (mapResult) {
       cleanups.push(mapResult.unsub);
     }

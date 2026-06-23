@@ -191,29 +191,7 @@ function renderContent(content, driverId, cleanups) {
       </div>
     ` : ''}
 
-    <!-- Truck Health -->
-    ${truck ? `
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Truck Health</h3>
-          <span class="badge badge-neutral">${truck.plate}</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
-          ${Object.entries(truck.health).map(([key, val]) => `
-            <div style="text-align: center;">
-              <div style="font-size: 24px; margin-bottom: 8px;">
-                ${{ tires: '🛞', oil: '🛢️', brakes: '🔴', engine: '⚙️' }[key] || '🔧'}
-              </div>
-              <div class="text-mono" style="font-size: 18px; font-weight: 700; color: ${val >= 85 ? 'var(--color-success)' : val >= 70 ? 'var(--color-warning)' : 'var(--color-danger)'};">${val}%</div>
-              <div style="font-size: 12px; color: var(--color-text-muted); text-transform: capitalize; margin-top: 4px;">${key}</div>
-              <div class="progress-bar" style="margin-top: 8px; height: 4px;">
-                <div class="progress-bar-fill" style="width: ${val}%; background: ${val >= 85 ? 'var(--color-success)' : val >= 70 ? 'var(--color-warning)' : 'var(--color-danger)'};"></div>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    ` : ''}
+
   `;
 
   // Live updates

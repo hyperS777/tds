@@ -41,7 +41,7 @@ function renderDashboardContent(content, cleanups) {
         <div class="alert-banner-text">${urgentAlerts[0].message}</div>
       </div>
       <div class="alert-banner-actions">
-        <a href="#/supervisor/alerts" class="btn btn-sm btn-danger">View All</a>
+        <a href="#/supervisor/fleet" class="btn btn-sm btn-danger">View All</a>
         <button class="btn btn-sm btn-ghost" id="dismiss-banner-btn">Dismiss</button>
       </div>
     </div>
@@ -121,7 +121,7 @@ function renderDashboardContent(content, cleanups) {
           <h3 class="card-title">Active Deliveries</h3>
           <p class="card-subtitle">Real-time delivery tracking</p>
         </div>
-        <a href="#/supervisor/deliveries" class="btn btn-ghost btn-sm">View All →</a>
+        <a href="#/supervisor/fleet" class="btn btn-sm btn-ghost">View All →</a>
       </div>
       <div class="table-container">
         <table class="table">
@@ -151,7 +151,7 @@ function renderDashboardContent(content, cleanups) {
           <h3 class="card-title">Driver Status Overview</h3>
           <p class="card-subtitle">Current status of all fleet drivers</p>
         </div>
-        <a href="#/supervisor/drivers" class="btn btn-ghost btn-sm">Manage →</a>
+        <a href="#/supervisor/fleet" class="btn btn-sm btn-ghost">Manage →</a>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;" id="driver-status-grid">
         ${drivers.map(driver => {
@@ -199,11 +199,12 @@ function renderDashboardContent(content, cleanups) {
     urgentAlerts.forEach(a => store.markAlertRead(a.id));
   });
 
-  // Driver card clicks -> call dialog
+  // Driver card clicks -> navigate to driver details
   content.querySelectorAll('[data-driver-id]').forEach(el => {
     el.addEventListener('click', () => {
-      const driver = store.getDriver(el.dataset.driverId);
-      if (driver) showCallDialog(driver);
+      import('../../router.js').then(({ router }) => {
+        router.navigate('/supervisor/driver/' + el.dataset.driverId);
+      });
     });
   });
 

@@ -2,6 +2,7 @@
 // TDS Map Component (Leaflet Wrapper)
 // ============================================
 import L from 'leaflet';
+import 'leaflet-routing-machine';
 import { store } from '../store.js';
 import { getStatusInfo, formatHours, getFuelColor } from '../utils/helpers.js';
 
@@ -17,7 +18,7 @@ L.Icon.Default.mergeOptions({
 function createTruckIcon(status) {
   return L.divIcon({
     className: '',
-    html: `<div class="truck-marker ${status}">🚛</div>`,
+    html: `<div class="truck-marker ${status}" style="transform: scaleX(-1);">🚛</div>`,
     iconSize: [36, 36],
     iconAnchor: [18, 18],
     popupAnchor: [0, -20]
@@ -50,8 +51,8 @@ export function createSupervisorMap(containerId) {
   });
 
   const map = L.map(containerId, {
-    center: [37.5, -100],
-    zoom: 4,
+    center: [4.2105, 101.9758], // Malaysia
+    zoom: 6,
     layers: [darkTiles],
     zoomControl: true,
     attributionControl: true
@@ -140,11 +141,22 @@ export function createSupervisorMap(containerId) {
         if (routeLines[driver.id]) {
           map.removeLayer(routeLines[driver.id]);
         }
-        const color = driver.status === 'delayed' ? '#ef4444' : '#3b82f6';
-        routeLines[driver.id] = L.polyline(
-          [[driver.currentPosition.lat, driver.currentPosition.lng], [driver.destination.lat, driver.destination.lng]],
-          { color, weight: 2, opacity: 0.6, dashArray: '8, 8' }
-        ).addTo(map);
+        // Use Leaflet Routing Machine for realistic roads (no UI panel)
+        routeLines[driver.id] = L.Routing.control({
+          waypoints: [
+            L.latLng(driver.currentPosition.lat, driver.currentPosition.lng),
+            L.latLng(driver.destination.lat, driver.destination.lng)
+          ],
+          lineOptions: {
+            styles: [{ color: driver.status === 'delayed' ? '#ef4444' : '#3b82f6', opacity: 0.8, weight: 4 }]
+          },
+          show: false,
+          addWaypoints: false,
+          routeWhileDragging: false,
+          fitSelectedRoutes: false,
+          showAlternatives: false,
+          createMarker: () => null // Do not create default markers
+        }).addTo(map);
       }
     });
   }
@@ -163,7 +175,7 @@ export function createSupervisorMap(containerId) {
 /**
  * Create a driver's route map
  */
-export function createDriverRouteMap(containerId, driverId) {
+export function createDriverDetailsMap(containerId, driverId) {
   const container = document.getElementById(containerId);
   if (!container) return null;
 
@@ -184,7 +196,7 @@ export function createDriverRouteMap(containerId, driverId) {
   map.zoomControl.setPosition('bottomright');
 
   const deliveries = store.getState().deliveries;
-  const activeDelivery = deliveries.find(d => d.driverId === driverId && ['in-progress', 'delayed'].includes(d.status));
+  const activeDelivery = deliveries.find(d => d.driverId === driverId && ['in-progress', 'delayed', 'loading'].includes(d.status));
 
   if (activeDelivery) {
     // Origin marker
@@ -207,11 +219,22 @@ export function createDriverRouteMap(containerId, driverId) {
       })
     }).addTo(map).bindPopup(`<b>Destination:</b> ${activeDelivery.destination.name}`);
 
-    // Route line
-    L.polyline(
-      [[activeDelivery.origin.lat, activeDelivery.origin.lng], [activeDelivery.destination.lat, activeDelivery.destination.lng]],
-      { color: '#3b82f6', weight: 3, opacity: 0.7, dashArray: '10, 6' }
-    ).addTo(map);
+    // Use Leaflet Routing Machine for realistic roads (no UI panel)
+    L.Routing.control({
+      waypoints: [
+        L.latLng(activeDelivery.origin.lat, activeDelivery.origin.lng),
+        L.latLng(activeDelivery.destination.lat, activeDelivery.destination.lng)
+      ],
+      lineOptions: {
+        styles: [{ color: '#3b82f6', opacity: 0.8, weight: 4 }]
+      },
+      show: false,
+      addWaypoints: false,
+      routeWhileDragging: false,
+      fitSelectedRoutes: true,
+      showAlternatives: false,
+      createMarker: () => null // Do not create default markers
+    }).addTo(map);
 
     // Current position marker (truck)
     const truckMarker = L.marker(

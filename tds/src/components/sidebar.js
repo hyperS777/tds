@@ -6,9 +6,7 @@ import { router } from '../router.js';
 
 const supervisorLinks = [
   { path: '/supervisor', icon: '📊', label: 'Dashboard' },
-  { path: '/supervisor/drivers', icon: '👥', label: 'Drivers' },
-  { path: '/supervisor/deliveries', icon: '📦', label: 'Deliveries' },
-  { path: '/supervisor/alerts', icon: '🚨', label: 'Alerts', badgeKey: 'urgentAlerts' },
+  { path: '/supervisor/fleet', icon: '🚛', label: 'Fleet' },
   { path: '/supervisor/analytics', icon: '📈', label: 'Analytics' },
 ];
 

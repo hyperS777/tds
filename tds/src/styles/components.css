@@ -320,7 +320,7 @@
 }
 
 .table tr:hover td {
-  background: rgba(59, 130, 246, 0.03);
+  background: rgba(45, 157, 146, 0.08);
 }
 
 .table tr:last-child td {
@@ -727,7 +727,7 @@
   transition: all var(--transition-fast);
 }
 .dropdown-item:hover {
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(45, 157, 146, 0.1);
   color: var(--color-text-primary);
 }
 

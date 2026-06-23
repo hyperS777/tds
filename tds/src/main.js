@@ -14,9 +14,8 @@ import { initToastListener } from './components/alerts.js';
 import { renderLanding } from './pages/landing.js';
 import { renderLogin } from './pages/login.js';
 import { renderSupervisorDashboard } from './pages/supervisor/dashboard.js';
-import { renderSupervisorDrivers } from './pages/supervisor/drivers.js';
-import { renderSupervisorDeliveries } from './pages/supervisor/deliveries.js';
-import { renderSupervisorAlerts } from './pages/supervisor/alerts.js';
+import { renderSupervisorFleet } from './pages/supervisor/fleet.js';
+import { renderSupervisorDriverDetails } from './pages/supervisor/driver-details.js';
 import { renderSupervisorAnalytics } from './pages/supervisor/analytics.js';
 import { renderDriverDashboard } from './pages/driver/dashboard.js';
 import { renderDriverDeliveries } from './pages/driver/deliveries.js';
@@ -29,9 +28,8 @@ router
   .register('/login', (el) => renderLogin(el))
   // Supervisor routes
   .register('/supervisor', (el) => renderSupervisorDashboard(el))
-  .register('/supervisor/drivers', (el) => renderSupervisorDrivers(el))
-  .register('/supervisor/deliveries', (el) => renderSupervisorDeliveries(el))
-  .register('/supervisor/alerts', (el) => renderSupervisorAlerts(el))
+  .register('/supervisor/fleet', (el) => renderSupervisorFleet(el))
+  .register('/supervisor/driver', (el) => renderSupervisorDriverDetails(el))
   .register('/supervisor/analytics', (el) => renderSupervisorAnalytics(el))
   // Driver routes
   .register('/driver', (el) => renderDriverDashboard(el))
