@@ -34,6 +34,12 @@
   font-weight: var(--font-extrabold);
   color: var(--color-text-primary);
   letter-spacing: -0.02em;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+.landing-logo:hover {
+  opacity: 0.85;
+  color: var(--color-text-primary);
 }
 .landing-logo-icon {
   width: 36px;
@@ -44,6 +50,34 @@
   align-items: center;
   justify-content: center;
   font-size: var(--text-lg);
+}
+
+/* Logo mark (shared component) */
+.tds-logo-mark {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  transition: opacity var(--transition-fast);
+}
+.tds-logo-mark:hover {
+  opacity: 0.85;
+  color: var(--color-text-primary);
+}
+.tds-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tds-logo-text {
+  font-size: var(--text-xl);
+  font-weight: var(--font-extrabold);
+  letter-spacing: -0.02em;
 }
 
 .landing-nav-links {
@@ -156,21 +190,55 @@
   margin-top: var(--space-1);
 }
 
-/* Animated truck on hero */
-.hero-truck-track {
+/* Hero glow orb (subtle ambient light) */
+.hero-glow-orb {
   position: absolute;
-  bottom: 15%;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
-  overflow: visible;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(45, 157, 146, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  animation: glowBreathe 6s ease-in-out infinite;
 }
-.hero-truck {
-  position: absolute;
-  font-size: 2rem;
-  animation: truckDrive 12s linear infinite;
-  filter: drop-shadow(0 0 10px var(--color-primary-glow));
+
+@keyframes glowBreathe {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+}
+
+/* Scroll-reveal animation */
+.animate-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0s);
+}
+.animate-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Feature card entrance */
+.feature-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease,
+              background var(--transition-base),
+              border-color var(--transition-base),
+              box-shadow var(--transition-base);
+  transition-delay: calc(var(--card-index, 0) * 0.06s);
+}
+.feature-card.feature-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero stat individual animation */
+.hero-stat {
+  text-align: center;
 }
 
 /* Features */

@@ -3,6 +3,7 @@
 // ============================================
 import { store } from '../store.js';
 import { router } from '../router.js';
+import { logoSVG } from './logo.js';
 
 const supervisorLinks = [
   { path: '/supervisor', icon: '📊', label: 'Dashboard' },
@@ -28,7 +29,7 @@ export function renderSidebar(container) {
   sidebar.innerHTML = `
     <div class="sidebar-header">
       <div class="sidebar-logo">
-        <div class="sidebar-logo-icon">🚛</div>
+        <div class="sidebar-logo-icon">${logoSVG(18)}</div>
         <span>TDS</span>
       </div>
     </div>

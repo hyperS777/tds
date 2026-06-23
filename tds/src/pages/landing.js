@@ -2,16 +2,17 @@
 // TDS Landing Page
 // ============================================
 import { router } from '../router.js';
+import { logoSVG, logoMark } from '../components/logo.js';
 
 export function renderLanding(container) {
   container.innerHTML = `
     <div class="landing-page">
       <!-- Navigation -->
       <header class="landing-nav" id="landing-nav">
-        <div class="landing-logo">
-          <div class="landing-logo-icon">🚛</div>
+        <a href="#/login" class="landing-logo" aria-label="Go to sign in">
+          <div class="landing-logo-icon">${logoSVG(22)}</div>
           <span>TDS</span>
-        </div>
+        </a>
         <nav class="landing-nav-links">
           <a href="#features" class="landing-nav-link">Features</a>
           <a href="#stats" class="landing-nav-link">Performance</a>
@@ -23,22 +24,20 @@ export function renderLanding(container) {
       <!-- Hero Section -->
       <section class="hero-section">
         <div class="hero-bg-grid"></div>
-        <div class="hero-truck-track">
-          <span class="hero-truck">🚛</span>
-        </div>
-        <div class="hero-content animate-fade-in-up">
-          <div class="hero-badge">
+        <div class="hero-glow-orb"></div>
+        <div class="hero-content">
+          <div class="hero-badge animate-reveal" style="--delay: 0s;">
             ⚡ Next-Generation Fleet Intelligence
           </div>
-          <h1 class="hero-title">
+          <h1 class="hero-title animate-reveal" style="--delay: 0.1s;">
             Deliver <span class="gradient-text">Smarter</span>,<br>
             Track <span class="gradient-text-success">Everything</span>
           </h1>
-          <p class="hero-subtitle">
+          <p class="hero-subtitle animate-reveal" style="--delay: 0.2s;">
             Real-time GPS tracking, intelligent route optimization, driver wellness monitoring,
             and predictive analytics — all in one powerful dashboard.
           </p>
-          <div class="hero-actions">
+          <div class="hero-actions animate-reveal" style="--delay: 0.3s;">
             <a href="#/login" class="btn btn-primary btn-lg" id="hero-cta-btn">
               Start Free Trial →
             </a>
@@ -46,20 +45,20 @@ export function renderLanding(container) {
               Explore Features
             </a>
           </div>
-          <div class="hero-stats stagger-children" id="stats">
-            <div>
+          <div class="hero-stats" id="stats">
+            <div class="hero-stat animate-reveal" style="--delay: 0.4s;">
               <div class="hero-stat-value gradient-text" data-count="2847">0</div>
               <div class="hero-stat-label">Deliveries This Month</div>
             </div>
-            <div>
+            <div class="hero-stat animate-reveal" style="--delay: 0.45s;">
               <div class="hero-stat-value gradient-text" data-count="98">0</div>
               <div class="hero-stat-label">% On-Time Rate</div>
             </div>
-            <div>
+            <div class="hero-stat animate-reveal" style="--delay: 0.5s;">
               <div class="hero-stat-value gradient-text" data-count="156">0</div>
               <div class="hero-stat-label">Active Fleet Vehicles</div>
             </div>
-            <div>
+            <div class="hero-stat animate-reveal" style="--delay: 0.55s;">
               <div class="hero-stat-value gradient-text" data-count="24">0</div>
               <div class="hero-stat-label">/7 Live Monitoring</div>
             </div>
@@ -76,7 +75,7 @@ export function renderLanding(container) {
             From real-time tracking to predictive maintenance — our platform covers every aspect of modern fleet management.
           </p>
         </div>
-        <div class="features-grid stagger-children">
+        <div class="features-grid">
           <div class="card card-hover feature-card">
             <div class="feature-icon" style="background: var(--color-primary-glow);">📍</div>
             <h3 class="feature-title">Real-Time GPS Tracking</h3>
@@ -148,8 +147,38 @@ export function renderLanding(container) {
     </div>
   `;
 
+  // Intersection observer for reveal animations
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  // Observe all reveal elements
+  container.querySelectorAll('.animate-reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // Observe feature cards for scroll-triggered animation
+  const featureObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('feature-visible');
+        featureObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+
+  container.querySelectorAll('.feature-card').forEach((el, i) => {
+    el.style.setProperty('--card-index', i);
+    featureObserver.observe(el);
+  });
+
   // Animate counters when in view
-  const observer = new IntersectionObserver((entries) => {
+  const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const counters = entry.target.querySelectorAll('[data-count]');
@@ -157,13 +186,13 @@ export function renderLanding(container) {
           const target = parseInt(counter.dataset.count);
           animateCount(counter, target);
         });
-        observer.unobserve(entry.target);
+        statsObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.5 });
 
   const statsSection = container.querySelector('.hero-stats');
-  if (statsSection) observer.observe(statsSection);
+  if (statsSection) statsObserver.observe(statsSection);
 
   // Navbar scroll effect
   const nav = container.querySelector('#landing-nav');
@@ -193,7 +222,9 @@ export function renderLanding(container) {
 
   return () => {
     window.removeEventListener('scroll', handleScroll);
-    observer.disconnect();
+    revealObserver.disconnect();
+    featureObserver.disconnect();
+    statsObserver.disconnect();
   };
 }
 
