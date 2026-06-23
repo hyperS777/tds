@@ -133,32 +133,32 @@ function renderDriverCards(drivers, trucks, deliveries) {
     const activeDelivery = deliveries.find(d => d.driverId === driver.id && ['in-progress', 'delayed', 'loading'].includes(d.status));
     const restStatus = getRestStatus(driver.drivingTime, driver.lastRest);
 
-    return \`
-      <div class="card card-hover driver-card" style="cursor: pointer;" data-driver-id="\${driver.id}">
+    return `
+      <div class="card card-hover driver-card" style="cursor: pointer;" data-driver-id="${driver.id}">
         <div class="driver-card-header">
-          <div class="avatar avatar-lg" style="background: \${driver.avatarColor};">
-            \${driver.initials}
-            <span class="avatar-status \${driver.status === 'driving' ? 'online' : driver.status === 'idle' ? 'offline' : 'away'}"></span>
+          <div class="avatar avatar-lg" style="background: ${driver.avatarColor};">
+            ${driver.initials}
+            <span class="avatar-status ${driver.status === 'driving' ? 'online' : driver.status === 'idle' ? 'offline' : 'away'}"></span>
           </div>
           <div class="driver-card-info">
-            <div class="driver-card-name">\${driver.name}</div>
-            <div class="driver-card-truck">\${truck?.model || 'No truck'} · \${truck?.plate || ''}</div>
-            <span class="badge badge-dot badge-\${statusInfo.color}" style="margin-top: 4px;">\${statusInfo.label}</span>
+            <div class="driver-card-name">${driver.name}</div>
+            <div class="driver-card-truck">${truck?.model || 'No truck'} · ${truck?.plate || ''}</div>
+            <span class="badge badge-dot badge-${statusInfo.color}" style="margin-top: 4px;">${statusInfo.label}</span>
           </div>
           <button class="btn btn-ghost btn-icon btn-sm call-btn" data-tooltip="Call">📞</button>
         </div>
 
-        \${activeDelivery ? \`
+        ${activeDelivery ? `
           <div style="padding: 8px 12px; background: var(--color-primary-glow); border-radius: 8px; margin-bottom: 12px; font-size: 12px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span style="color: var(--color-text-muted);">Current:</span>
-              <span style="font-weight: 600; color: var(--color-primary-light);">\${activeDelivery.destination.name}</span>
+              <span style="font-weight: 600; color: var(--color-primary-light);">${activeDelivery.destination.name}</span>
             </div>
             <div class="progress-bar" style="margin-top: 6px; height: 3px;">
-              <div class="progress-bar-fill" style="width: \${activeDelivery.progress}%;"></div>
+              <div class="progress-bar-fill" style="width: ${activeDelivery.progress}%;"></div>
             </div>
           </div>
-        \` : ''}
+        ` : ''}
 
         <div class="divider" style="margin: 12px 0;"></div>
 
@@ -166,14 +166,14 @@ function renderDriverCards(drivers, trucks, deliveries) {
           <div class="fuel-gauge" style="flex: 1; margin-right: 12px;">
             <span style="font-size: 12px;">⛽</span>
             <div class="fuel-gauge-bar">
-              <div class="fuel-gauge-fill" style="width: \${fuelPct}%; background: \${getFuelColor(fuelPct)};"></div>
+              <div class="fuel-gauge-fill" style="width: ${fuelPct}%; background: ${getFuelColor(fuelPct)};"></div>
             </div>
-            <span class="fuel-gauge-label">\${fuelPct}%</span>
+            <span class="fuel-gauge-label">${fuelPct}%</span>
           </div>
-          <span class="badge badge-\${restStatus.color}" style="font-size: 9px;">\${restStatus.label}</span>
+          <span class="badge badge-${restStatus.color}" style="font-size: 9px;">${restStatus.label}</span>
         </div>
       </div>
-    \`;
+    `;
   }).join('') || '<div class="empty-state"><div class="empty-state-icon">👥</div><div class="empty-state-title">No drivers found</div></div>';
 }
 
@@ -181,7 +181,7 @@ function renderDeliveriesTab(container, cleanups) {
   const deliveries = store.getState().deliveries;
   const drivers = store.getState().drivers;
 
-  container.innerHTML = \`
+  container.innerHTML = `
     <div style="display: flex; gap: 8px; margin-bottom: 16px; justify-content: flex-end;">
       <select class="select" id="filter-priority" style="width: auto;">
         <option value="all">All Priorities</option>
@@ -208,12 +208,12 @@ function renderDeliveriesTab(container, cleanups) {
             </tr>
           </thead>
           <tbody id="deliveries-tbody">
-            \${renderDeliveryRows(deliveries, drivers, 'all')}
+            ${renderDeliveryRows(deliveries, drivers, 'all')}
           </tbody>
         </table>
       </div>
     </div>
-  \`;
+  `;
 
   let currentPriority = 'all';
 
@@ -253,44 +253,44 @@ function renderDeliveryRows(deliveries, drivers, priority) {
     const priorityInfo = getPriorityInfo(del.priority);
     const isOnTime = del.actualTime ? del.actualTime <= del.estimatedTime * 1.1 : true;
 
-    return \`
-      <tr style="\${del.status === 'delayed' ? 'border-left: 3px solid var(--color-danger);' : del.status === 'completed' && isOnTime ? 'border-left: 3px solid var(--color-success);' : ''}">
+    return `
+      <tr style="${del.status === 'delayed' ? 'border-left: 3px solid var(--color-danger);' : del.status === 'completed' && isOnTime ? 'border-left: 3px solid var(--color-success);' : ''}">
         <td>
-          <div style="font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--color-primary-light);">\${del.id}</div>
-          <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;" class="truncate" title="\${del.package.description}">
-            \${del.package.description}
+          <div style="font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--color-primary-light);">${del.id}</div>
+          <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;" class="truncate" title="${del.package.description}">
+            ${del.package.description}
           </div>
         </td>
         <td>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <div class="avatar avatar-sm" style="background: \${driver?.avatarColor || '#666'}; font-size: 10px; width: 24px; height: 24px;">\${driver?.initials || '?'}</div>
-            <span style="font-size: 13px;">\${driver?.name || 'Unassigned'}</span>
+            <div class="avatar avatar-sm" style="background: ${driver?.avatarColor || '#666'}; font-size: 10px; width: 24px; height: 24px;">${driver?.initials || '?'}</div>
+            <span style="font-size: 13px;">${driver?.name || 'Unassigned'}</span>
           </div>
         </td>
         <td>
           <div style="font-size: 12px;">
-            <div style="color: var(--color-text-muted);">\${del.origin.name}</div>
-            <div style="color: var(--color-text-primary); font-weight: 500;">\${del.destination.name}</div>
+            <div style="color: var(--color-text-muted);">${del.origin.name}</div>
+            <div style="color: var(--color-text-primary); font-weight: 500;">${del.destination.name}</div>
           </div>
         </td>
-        <td><span class="badge badge-\${priorityInfo.color}">\${priorityInfo.icon} \${priorityInfo.label}</span></td>
-        <td><span class="badge badge-dot badge-\${statusInfo.color}">\${statusInfo.label}</span></td>
-        <td><span class="text-mono" style="font-size: 12px;">\${formatHours(del.estimatedTime)}</span></td>
+        <td><span class="badge badge-${priorityInfo.color}">${priorityInfo.icon} ${priorityInfo.label}</span></td>
+        <td><span class="badge badge-dot badge-${statusInfo.color}">${statusInfo.label}</span></td>
+        <td><span class="text-mono" style="font-size: 12px;">${formatHours(del.estimatedTime)}</span></td>
         <td>
-          <span class="text-mono" style="font-size: 12px; color: \${del.actualTime ? (isOnTime ? 'var(--color-success)' : 'var(--color-danger)') : 'var(--color-text-muted)'};">
-            \${del.actualTime ? formatHours(del.actualTime) : del.status === 'completed' ? '--' : '...'}
+          <span class="text-mono" style="font-size: 12px; color: ${del.actualTime ? (isOnTime ? 'var(--color-success)' : 'var(--color-danger)') : 'var(--color-text-muted)'};">
+            ${del.actualTime ? formatHours(del.actualTime) : del.status === 'completed' ? '--' : '...'}
           </span>
         </td>
-        <td><span style="font-size: 14px;">\${getWeatherIcon(del.weather)}</span></td>
+        <td><span style="font-size: 14px;">${getWeatherIcon(del.weather)}</span></td>
         <td>
           <div style="display: flex; align-items: center; gap: 8px; min-width: 100px;">
             <div class="progress-bar" style="flex: 1; height: 4px;">
-              <div class="progress-bar-fill \${del.status === 'delayed' ? 'progress-bar-danger' : ''}" style="width: \${del.progress}%;"></div>
+              <div class="progress-bar-fill ${del.status === 'delayed' ? 'progress-bar-danger' : ''}" style="width: ${del.progress}%;"></div>
             </div>
-            <span class="text-mono" style="font-size: 10px; color: var(--color-text-muted);">\${Math.round(del.progress)}%</span>
+            <span class="text-mono" style="font-size: 10px; color: var(--color-text-muted);">${Math.round(del.progress)}%</span>
           </div>
         </td>
       </tr>
-    \`;
+    `;
   }).join('') || '<tr><td colspan="9"><div class="empty-state" style="padding: 32px;"><div class="empty-state-title">No deliveries found</div></div></td></tr>';
 }

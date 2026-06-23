@@ -66,20 +66,20 @@ function renderContent(content, driverId, cleanups) {
       const estEndTime = currentDelivery.eta ? new Date(currentDelivery.eta).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Unknown';
       const actEndTime = currentDelivery.actualTime ? new Date(currentDelivery.actualTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--';
 
-      timelineHtml = \`
+      timelineHtml = `
         <div class="timeline" style="display: flex; justify-content: space-between; position: relative; margin-top: 24px;">
           <!-- Connecting Line -->
           <div style="position: absolute; top: 14px; left: 10%; right: 10%; height: 2px; background: var(--border-color); z-index: 0;">
-            <div style="height: 100%; background: var(--color-primary); width: \${isCompleted ? '100' : isStarted ? '50' : '0'}%; transition: width 1s;"></div>
+            <div style="height: 100%; background: var(--color-primary); width: ${isCompleted ? '100' : isStarted ? '50' : '0'}%; transition: width 1s;"></div>
           </div>
           
           <!-- Start Node -->
           <div style="display: flex; flex-direction: column; align-items: center; z-index: 1; width: 80px;">
-            <div style="width: 30px; height: 30px; border-radius: 50%; background: \${isStarted ? 'var(--color-primary)' : 'var(--bg-card)'}; border: 2px solid var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 14px; color: \${isStarted ? 'white' : 'var(--color-primary)'}; margin-bottom: 8px;">
-              \${isStarted ? '✓' : '1'}
+            <div style="width: 30px; height: 30px; border-radius: 50%; background: ${isStarted ? 'var(--color-primary)' : 'var(--bg-card)'}; border: 2px solid var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 14px; color: ${isStarted ? 'white' : 'var(--color-primary)'}; margin-bottom: 8px;">
+              ${isStarted ? '✓' : '1'}
             </div>
             <div style="font-size: 12px; font-weight: 600;">Started</div>
-            <div style="font-size: 11px; color: var(--color-text-muted);" class="text-mono">\${startTime}</div>
+            <div style="font-size: 11px; color: var(--color-text-muted);" class="text-mono">${startTime}</div>
           </div>
 
           <!-- ETA Node -->
@@ -88,33 +88,33 @@ function renderContent(content, driverId, cleanups) {
               2
             </div>
             <div style="font-size: 12px; font-weight: 600;">Estimated</div>
-            <div style="font-size: 11px; color: var(--color-text-muted);" class="text-mono">\${estEndTime}</div>
+            <div style="font-size: 11px; color: var(--color-text-muted);" class="text-mono">${estEndTime}</div>
           </div>
 
           <!-- Completed Node -->
           <div style="display: flex; flex-direction: column; align-items: center; z-index: 1; width: 80px;">
-            <div style="width: 30px; height: 30px; border-radius: 50%; background: \${isCompleted ? 'var(--color-success)' : 'var(--bg-card)'}; border: 2px solid \${isCompleted ? 'var(--color-success)' : 'var(--border-color)'}; display: flex; align-items: center; justify-content: center; font-size: 14px; color: \${isCompleted ? 'white' : 'var(--color-text-muted)'}; margin-bottom: 8px;">
-              \${isCompleted ? '✓' : '3'}
+            <div style="width: 30px; height: 30px; border-radius: 50%; background: ${isCompleted ? 'var(--color-success)' : 'var(--bg-card)'}; border: 2px solid ${isCompleted ? 'var(--color-success)' : 'var(--border-color)'}; display: flex; align-items: center; justify-content: center; font-size: 14px; color: ${isCompleted ? 'white' : 'var(--color-text-muted)'}; margin-bottom: 8px;">
+              ${isCompleted ? '✓' : '3'}
             </div>
             <div style="font-size: 12px; font-weight: 600;">Completed</div>
-            <div style="font-size: 11px; color: var(--color-text-muted);" class="text-mono">\${actEndTime}</div>
+            <div style="font-size: 11px; color: var(--color-text-muted);" class="text-mono">${actEndTime}</div>
           </div>
         </div>
-      \`;
+      `;
     }
 
     // Only set innerHTML if this is the first render, otherwise just update specific elements to avoid map flicker
     if (!content.querySelector('#driver-details-grid')) {
-      content.innerHTML = \`
+      content.innerHTML = `
         <div class="page-header" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
           <div style="display: flex; align-items: center; gap: 16px;">
             <button class="btn btn-ghost btn-icon" id="back-btn">←</button>
-            <div class="avatar avatar-lg" style="background: \${driver.avatarColor};">
-              \${driver.initials}
+            <div class="avatar avatar-lg" style="background: ${driver.avatarColor};">
+              ${driver.initials}
             </div>
             <div>
-              <h2 class="page-title" style="margin-bottom: 4px;">\${driver.name}</h2>
-              <span class="badge badge-dot badge-\${statusInfo.color}">\${statusInfo.label}</span>
+              <h2 class="page-title" style="margin-bottom: 4px;">${driver.name}</h2>
+              <span class="badge badge-dot badge-${statusInfo.color}">${statusInfo.label}</span>
             </div>
           </div>
           <button class="btn btn-primary" id="call-driver-btn">📞 Call Driver</button>
@@ -129,19 +129,19 @@ function renderContent(content, driverId, cleanups) {
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                 <div>
                   <div style="font-size: 12px; color: var(--color-text-muted);">Truck Model</div>
-                  <div style="font-size: 14px; font-weight: 500;">\${truck?.model || 'N/A'}</div>
+                  <div style="font-size: 14px; font-weight: 500;">${truck?.model || 'N/A'}</div>
                 </div>
                 <div>
                   <div style="font-size: 12px; color: var(--color-text-muted);">License Plate</div>
-                  <div style="font-size: 14px; font-weight: 500;">\${truck?.plate || 'N/A'}</div>
+                  <div style="font-size: 14px; font-weight: 500;">${truck?.plate || 'N/A'}</div>
                 </div>
                 <div style="grid-column: span 2;">
                   <div style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 8px;">Fuel Level</div>
                   <div class="fuel-gauge" style="width: 100%;">
                     <div class="fuel-gauge-bar" style="height: 12px; border-radius: 6px;">
-                      <div class="fuel-gauge-fill" style="width: \${fuelPct}%; background: \${getFuelColor(fuelPct)};"></div>
+                      <div class="fuel-gauge-fill" style="width: ${fuelPct}%; background: ${getFuelColor(fuelPct)};"></div>
                     </div>
-                    <span class="fuel-gauge-label" id="dd-fuel-label">\${fuelPct}%</span>
+                    <span class="fuel-gauge-label" id="dd-fuel-label">${fuelPct}%</span>
                   </div>
                 </div>
               </div>
@@ -149,10 +149,10 @@ function renderContent(content, driverId, cleanups) {
 
             <div>
               <h3 class="card-title">Delivery Timeline</h3>
-              <p class="card-subtitle">\${currentDelivery ? currentDelivery.package.description : 'No active delivery'}</p>
+              <p class="card-subtitle">${currentDelivery ? currentDelivery.package.description : 'No active delivery'}</p>
               <div class="divider" style="margin: 12px 0;"></div>
               <div id="dd-timeline">
-                \${timelineHtml}
+                ${timelineHtml}
               </div>
             </div>
           </div>
@@ -166,7 +166,7 @@ function renderContent(content, driverId, cleanups) {
             <div class="dashboard-map-container" id="driver-details-map"></div>
           </div>
         </div>
-      \`;
+      `;
 
       content.querySelector('#back-btn')?.addEventListener('click', () => {
         router.navigate('/supervisor/fleet');
@@ -187,11 +187,11 @@ function renderContent(content, driverId, cleanups) {
     } else {
       // Just update timeline and fuel to avoid map flickering
       const fuelLabel = content.querySelector('#dd-fuel-label');
-      if (fuelLabel) fuelLabel.textContent = \`\${fuelPct}%\`;
+      if (fuelLabel) fuelLabel.textContent = `${fuelPct}%`;
       
       const fuelFill = content.querySelector('.fuel-gauge-fill');
       if (fuelFill) {
-        fuelFill.style.width = \`\${fuelPct}%\`;
+        fuelFill.style.width = `${fuelPct}%`;
         fuelFill.style.background = getFuelColor(fuelPct);
       }
 
