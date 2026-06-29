@@ -10,6 +10,7 @@ import { showEditDriverModal } from './fleet.js';
 import { getStatusInfo, getFuelColor, formatHours } from '../../utils/helpers.js';
 import { createDriverDetailsMap } from '../../components/map.js';
 import { router } from '../../router.js';
+import { showMessageModal } from '../../components/messaging.js';
 
 export function renderSupervisorDriverDetails(container) {
   const cleanups = [];
@@ -122,6 +123,7 @@ function renderContent(content, driverId, cleanups) {
           <div style="display: flex; gap: 8px; align-items: center;">
             <button class="btn btn-outline btn-sm" id="edit-driver-btn">✏️ Edit</button>
             <button class="btn btn-danger btn-sm" id="remove-driver-btn">🗑️ Remove</button>
+            <button class="btn btn-secondary" id="msg-driver-btn">💬 Message</button>
             <button class="btn btn-primary" id="call-driver-btn">📞 Call Driver</button>
           </div>
         </div>
@@ -230,6 +232,14 @@ function renderContent(content, driverId, cleanups) {
       // Call button
       content.querySelector('#call-driver-btn')?.addEventListener('click', () => {
         showCallDialog(driver);
+      });
+
+      // Message button
+      content.querySelector('#msg-driver-btn')?.addEventListener('click', () => {
+        const currentDriver = store.getDriver(driverId);
+        if (currentDriver) {
+          showMessageModal(currentDriver);
+        }
       });
 
       // Edit button
