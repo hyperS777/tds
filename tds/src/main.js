@@ -1,14 +1,16 @@
 // ============================================
-// TDS Main Entry Point
+// TDS Main Entry Point (Enhanced)
 // ============================================
 import './styles/design-system.css';
 import './styles/components.css';
 import './styles/pages.css';
+import './styles/enhancements.css';
 
 import { router } from './router.js';
 import { store } from './store.js';
 import { startSimulation, stopSimulation } from './data/simulation.js';
 import { initToastListener } from './components/alerts.js';
+import { initCommandPalette } from './components/command-palette.js';
 
 // Pages
 import { renderLanding } from './pages/landing.js';
@@ -21,6 +23,8 @@ import { renderDriverDashboard } from './pages/driver/dashboard.js';
 import { renderDriverDeliveries } from './pages/driver/deliveries.js';
 import { renderDriverRoute } from './pages/driver/route.js';
 import { renderDriverScan } from './pages/driver/scan.js';
+import { renderSettings } from './pages/settings.js';
+import { renderMessages } from './pages/messages.js';
 
 // ---- Register Routes ----
 router
@@ -35,7 +39,10 @@ router
   .register('/driver', (el) => renderDriverDashboard(el))
   .register('/driver/deliveries', (el) => renderDriverDeliveries(el))
   .register('/driver/route', (el) => renderDriverRoute(el))
-  .register('/driver/scan', (el) => renderDriverScan(el));
+  .register('/driver/scan', (el) => renderDriverScan(el))
+  // Shared routes
+  .register('/settings', (el) => renderSettings(el))
+  .register('/messages', (el) => renderMessages(el));
 
 // ---- Route Guard ----
 router.beforeEach((path) => {
@@ -55,6 +62,11 @@ router.beforeEach((path) => {
     return '/login';
   }
 
+  // Shared routes accessible by both roles
+  if (path === '/settings' || path === '/messages') {
+    return true;
+  }
+
   // Role-based access
   if (path.startsWith('/supervisor') && auth.role !== 'supervisor') {
     return '/driver';
@@ -67,9 +79,20 @@ router.beforeEach((path) => {
 });
 
 // ---- Initialize ----
-function init() {
+async function init() {
+  // Apply saved theme
+  const savedTheme = localStorage.getItem('tds-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  store.getState().ui.theme = savedTheme;
+
+  // Initialize database and load data
+  await store.init();
+
   // Initialize toast listener
   initToastListener();
+
+  // Initialize command palette
+  initCommandPalette();
 
   // Start simulation
   startSimulation();
@@ -77,8 +100,10 @@ function init() {
   // Start router
   router.start();
 
-  console.log('%c🚛 TDS — Truck Delivery System', 'color: #3b82f6; font-size: 16px; font-weight: bold;');
-  console.log('%cDemo loaded. Navigate to #/login to get started.', 'color: #94a3b8;');
+  console.log('%c🚛 TDS — Truck Delivery System', 'color: #3d8c83; font-size: 16px; font-weight: bold;');
+  console.log('%cEnhanced Edition — v2.0.0 (with Database)', 'color: #52a69d; font-size: 12px;');
+  console.log('%cData persists across page reloads via IndexedDB.', 'color: #a19f9d;');
+  console.log('%cTip: Press Ctrl+K to open the command palette!', 'color: #a19f9d;');
 }
 
 // Start when DOM is ready

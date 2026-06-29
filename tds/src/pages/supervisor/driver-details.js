@@ -5,6 +5,8 @@ import { store } from '../../store.js';
 import { renderNavbar } from '../../components/navbar.js';
 import { renderSidebar } from '../../components/sidebar.js';
 import { showCallDialog } from '../../components/alerts.js';
+import { showConfirmDialog } from '../../components/modal.js';
+import { showEditDriverModal } from './fleet.js';
 import { getStatusInfo, getFuelColor, formatHours } from '../../utils/helpers.js';
 import { createDriverDetailsMap } from '../../components/map.js';
 import { router } from '../../router.js';
@@ -113,11 +115,47 @@ function renderContent(content, driverId, cleanups) {
               ${driver.initials}
             </div>
             <div>
-              <h2 class="page-title" style="margin-bottom: 4px;">${driver.name}</h2>
+              <h2 class="page-title" style="margin-bottom: 4px;" id="dd-driver-name">${driver.name}</h2>
               <span class="badge badge-dot badge-${statusInfo.color}">${statusInfo.label}</span>
             </div>
           </div>
-          <button class="btn btn-primary" id="call-driver-btn">📞 Call Driver</button>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button class="btn btn-outline btn-sm" id="edit-driver-btn">✏️ Edit</button>
+            <button class="btn btn-danger btn-sm" id="remove-driver-btn">🗑️ Remove</button>
+            <button class="btn btn-primary" id="call-driver-btn">📞 Call Driver</button>
+          </div>
+        </div>
+
+        <!-- Performance Summary -->
+        <div class="kpi-grid" style="margin-bottom: 24px;">
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="background: var(--color-success-glow); color: var(--color-success-light);">📊</div>
+            <div class="kpi-info">
+              <div class="kpi-value">${driver.performanceScore}</div>
+              <div class="kpi-label">Performance</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="background: var(--color-primary-glow); color: var(--color-primary-light);">📦</div>
+            <div class="kpi-info">
+              <div class="kpi-value">${driver.totalDeliveries}</div>
+              <div class="kpi-label">Total Deliveries</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="background: var(--color-warning-glow); color: var(--color-warning-light);">⏱️</div>
+            <div class="kpi-info">
+              <div class="kpi-value">${driver.onTimeRate}%</div>
+              <div class="kpi-label">On-Time Rate</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="background: rgba(124,109,181,0.15); color: var(--color-info-light);">💤</div>
+            <div class="kpi-info">
+              <div class="kpi-value">${driver.restCompliance}%</div>
+              <div class="kpi-label">Rest Compliance</div>
+            </div>
+          </div>
         </div>
 
         <div class="dashboard-grid" id="driver-details-grid" style="grid-template-columns: 1fr 1fr;">
@@ -127,6 +165,22 @@ function renderContent(content, driverId, cleanups) {
               <h3 class="card-title">Driver & Vehicle Info</h3>
               <div class="divider" style="margin: 12px 0;"></div>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <div style="font-size: 12px; color: var(--color-text-muted);">Email</div>
+                  <div style="font-size: 14px; font-weight: 500;">${driver.email}</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: var(--color-text-muted);">Phone</div>
+                  <div style="font-size: 14px; font-weight: 500;">${driver.phone || 'N/A'}</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: var(--color-text-muted);">License</div>
+                  <div style="font-size: 14px; font-weight: 500; font-family: var(--font-mono);">${driver.license || 'N/A'}</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: var(--color-text-muted);">Experience</div>
+                  <div style="font-size: 14px; font-weight: 500;">${driver.experience} years</div>
+                </div>
                 <div>
                   <div style="font-size: 12px; color: var(--color-text-muted);">Truck Model</div>
                   <div style="font-size: 14px; font-weight: 500;">${truck?.model || 'N/A'}</div>
@@ -168,12 +222,44 @@ function renderContent(content, driverId, cleanups) {
         </div>
       `;
 
+      // Back button
       content.querySelector('#back-btn')?.addEventListener('click', () => {
         router.navigate('/supervisor/fleet');
       });
 
+      // Call button
       content.querySelector('#call-driver-btn')?.addEventListener('click', () => {
         showCallDialog(driver);
+      });
+
+      // Edit button
+      content.querySelector('#edit-driver-btn')?.addEventListener('click', () => {
+        const currentDriver = store.getDriver(driverId);
+        if (currentDriver) {
+          showEditDriverModal(currentDriver, () => {
+            // Force re-render the whole page after edit
+            const nameEl = content.querySelector('#dd-driver-name');
+            const updatedDriver = store.getDriver(driverId);
+            if (nameEl && updatedDriver) nameEl.textContent = updatedDriver.name;
+          });
+        }
+      });
+
+      // Remove button
+      content.querySelector('#remove-driver-btn')?.addEventListener('click', () => {
+        const currentDriver = store.getDriver(driverId);
+        if (currentDriver) {
+          showConfirmDialog({
+            title: 'Remove Driver',
+            message: `Are you sure you want to remove <strong>${currentDriver.name}</strong> from the fleet? Any active deliveries will be unassigned.`,
+            confirmLabel: 'Remove Driver',
+            danger: true,
+            onConfirm: () => {
+              store.removeDriver(driverId);
+              router.navigate('/supervisor/fleet');
+            }
+          });
+        }
       });
 
       // Initialize Map

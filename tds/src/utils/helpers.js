@@ -128,6 +128,7 @@ export function getStatusInfo(status) {
     'in-progress': { label: 'In Progress', color: 'primary', icon: '🚛' },
     'completed': { label: 'Completed', color: 'success', icon: '✅' },
     'scheduled': { label: 'Scheduled', color: 'info', icon: '📋' },
+    'cancelled': { label: 'Cancelled', color: 'neutral', icon: '🚫' },
   };
   return map[status] || { label: status, color: 'neutral', icon: '❓' };
 }
