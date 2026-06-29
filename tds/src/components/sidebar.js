@@ -19,6 +19,7 @@ const driverLinks = [
   { path: '/driver/deliveries', icon: () => icons.deliveries(18), label: 'My Deliveries' },
   { path: '/driver/route', icon: () => icons.route(18), label: 'Active Route' },
   { path: '/driver/scan', icon: () => icons.camera(18), label: 'Scan Receipt' },
+  { path: '/messages', icon: () => icons.messages(18), label: 'Messages', badgeKey: 'messages' },
 ];
 
 const bottomLinks = [

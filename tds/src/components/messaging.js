@@ -17,6 +17,14 @@ const messageStore = {
     'Please update your ETA.',
     'Check vehicle health before departing.',
     'Customer is expecting delivery soon.',
+  ],
+  driverQuickMessages: [
+    'Arriving soon',
+    'Stuck in traffic',
+    'At pickup/dropoff point',
+    'Taking a rest break',
+    'Need assistance',
+    'Delivery complete'
   ]
 };
 
@@ -189,8 +197,14 @@ export function closeMessageModal() {
  * Renders the full messages page (list of conversations).
  */
 export function renderMessagesPage(container) {
-  const drivers = store.getState().drivers;
   const auth = store.getState().auth;
+
+  if (auth.role === 'driver') {
+    renderDriverMessages(container, auth.user);
+    return;
+  }
+
+  const drivers = store.getState().drivers;
 
   container.innerHTML = `
     <div class="page-header">
@@ -355,4 +369,111 @@ function renderChatPanel(driver) {
   });
 
   setTimeout(() => input?.focus(), 100);
+}
+
+export function renderDriverMessages(container, user) {
+  const driverId = user.id;
+  const conversation = getConversation(driverId);
+  markConversationRead(driverId); // Driver reads supervisor's messages
+
+  container.innerHTML = `
+    <div class="driver-chat-layout animate-fade-in" style="display: flex; flex-direction: column; height: 100%;">
+      <div class="page-header" style="padding: 16px 24px; border-bottom: 1px solid var(--color-border); flex-shrink: 0;">
+        <div>
+          <h2 class="page-title">${icons.messages(24)} Dispatch Chat</h2>
+          <p class="page-subtitle">Command Center</p>
+        </div>
+      </div>
+      
+      <div class="messages-chat-body" id="driver-chat-body" style="flex: 1; padding: 24px; overflow-y: auto;">
+        ${conversation.length === 0 ? `<div style="text-align: center; color: var(--color-text-muted); margin-top: 40px;">No messages yet.</div>` : ''}
+        ${conversation.map(msg => `
+          <div class="message-bubble ${msg.from === driverId ? 'sent' : 'received'}">
+            <div class="message-bubble-text" style="font-size: 18px; line-height: 1.5;">${msg.text}</div>
+            <div class="message-bubble-time">${formatRelativeTime(msg.timestamp)}</div>
+          </div>
+        `).join('')}
+      </div>
+      
+      <div class="driver-handsfree-panel" style="padding: 24px; border-top: 1px solid var(--color-border); background: var(--color-surface); flex-shrink: 0;">
+        <div class="driver-quick-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+          ${messageStore.driverQuickMessages.map(q => `
+            <button class="btn btn-outline driver-huge-btn" data-text="${q}" style="height: 64px; font-size: 16px; border-radius: 12px; white-space: normal; line-height: 1.2;">
+              ${q}
+            </button>
+          `).join('')}
+        </div>
+        
+        <div style="display: flex; gap: 16px;">
+          <button class="btn btn-secondary btn-icon" id="driver-mic-btn" style="width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            ${icons.mic(32)}
+          </button>
+          <div style="flex: 1; display: flex; position: relative;">
+            <input type="text" class="input" id="driver-chat-input" placeholder="Type or use voice..." autocomplete="off" style="width: 100%; height: 64px; font-size: 18px; border-radius: 32px; padding: 0 80px 0 24px;" />
+            <button class="btn btn-primary btn-icon" id="driver-chat-send-btn" style="position: absolute; right: 8px; top: 8px; bottom: 8px; width: 48px; border-radius: 50%;">
+              ${icons.send(20)}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const body = document.getElementById('driver-chat-body');
+  if (body) body.scrollTop = body.scrollHeight;
+
+  const input = document.getElementById('driver-chat-input');
+  const sendBtn = document.getElementById('driver-chat-send-btn');
+  const micBtn = document.getElementById('driver-mic-btn');
+
+  const doSend = (text) => {
+    if (!text) text = input.value.trim();
+    if (!text) return;
+    sendMessage(driverId, 'supervisor', text); // from driver, to supervisor (stored under driver's convo)
+    input.value = '';
+    
+    // Quick re-render of body
+    const chatBody = document.getElementById('driver-chat-body');
+    if (chatBody) {
+      chatBody.innerHTML += `
+        <div class="message-bubble sent animate-fade-in-up" style="animation-duration: 0.2s;">
+          <div class="message-bubble-text" style="font-size: 18px; line-height: 1.5;">${text}</div>
+          <div class="message-bubble-time">Just now</div>
+        </div>
+      `;
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  };
+
+  sendBtn?.addEventListener('click', () => doSend());
+  input?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      doSend();
+    }
+  });
+
+  // Quick replies
+  container.querySelectorAll('.driver-huge-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      doSend(btn.dataset.text);
+    });
+  });
+
+  // Mic Button Simulation
+  micBtn?.addEventListener('click', () => {
+    micBtn.classList.add('recording');
+    micBtn.style.backgroundColor = 'var(--color-danger)';
+    micBtn.style.color = 'white';
+    micBtn.innerHTML = icons.mic(32);
+    input.placeholder = "Listening...";
+    
+    setTimeout(() => {
+      micBtn.classList.remove('recording');
+      micBtn.style.backgroundColor = '';
+      micBtn.style.color = '';
+      input.placeholder = "Type or use voice...";
+      input.value = "Voice input test message";
+    }, 2000);
+  });
 }
