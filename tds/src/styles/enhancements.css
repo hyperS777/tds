@@ -623,3 +623,34 @@ input:checked + .toggle-slider:before {
   70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
   100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
+
+/* ---------- Sidebar Missing Styles ---------- */
+.sidebar-quick-stats {
+  padding: 0 var(--space-3) var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sidebar-quick-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-sm);
+}
+
+.sidebar-quick-stat-label {
+  color: var(--color-text-muted);
+}
+
+.sidebar-quick-stat-value {
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+}
+
+.sidebar-bottom-links {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
