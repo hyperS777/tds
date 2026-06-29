@@ -236,10 +236,8 @@ function renderContent(content, driverId, cleanups) {
 
       // Message button
       content.querySelector('#msg-driver-btn')?.addEventListener('click', () => {
-        const currentDriver = store.getDriver(driverId);
-        if (currentDriver) {
-          showMessageModal(currentDriver);
-        }
+        localStorage.setItem('tds-open-message', driverId);
+        router.navigate('/messages');
       });
 
       // Edit button

@@ -264,6 +264,16 @@ export function renderMessagesPage(container) {
       item.style.display = name.includes(q) ? '' : 'none';
     });
   });
+
+  // Check if we need to open a specific driver's conversation
+  const openDriverId = localStorage.getItem('tds-open-message');
+  if (openDriverId) {
+    localStorage.removeItem('tds-open-message');
+    setTimeout(() => {
+      const targetItem = container.querySelector(`.messages-conv-item[data-driver-id="${openDriverId}"]`);
+      if (targetItem) targetItem.click();
+    }, 50);
+  }
 }
 
 function renderChatPanel(driver) {
