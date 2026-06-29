@@ -123,7 +123,7 @@ function renderContent(content, driverId, cleanups) {
           <div style="display: flex; gap: 8px; align-items: center;">
             <button class="btn btn-outline btn-sm" id="edit-driver-btn">✏️ Edit</button>
             <button class="btn btn-danger btn-sm" id="remove-driver-btn">🗑️ Remove</button>
-            <button class="btn btn-secondary" id="msg-driver-btn">💬 Message</button>
+            <button class="btn btn-outline" id="msg-driver-btn">💬 Message</button>
             <button class="btn btn-primary" id="call-driver-btn">📞 Call Driver</button>
           </div>
         </div>
